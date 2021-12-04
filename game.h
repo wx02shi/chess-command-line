@@ -9,6 +9,7 @@
 #include "subject.h"
 
 class Player;
+class Human;
 
 class Game: public Subject {
     std::shared_ptr<Player> white = nullptr;
