@@ -13,4 +13,8 @@ char Piece::getType() {
     return type;
 }
 
+char Piece::getColor() {
+    return color;
+}
+
 Piece::~Piece() {}

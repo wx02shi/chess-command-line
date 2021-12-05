@@ -7,6 +7,8 @@
 
 #include "board.h"
 
+class Board;
+
 class Piece {
     char color;
     protected:
@@ -14,11 +16,13 @@ class Piece {
 
     public:
         Piece(char color);
-        // std::vector<std::pair<int, int>> getValidMoves(std::pair<int, int> position, Board b*);
+
+        virtual std::vector<std::pair<int, int>> getValidMoves(std::pair<int, int> position, Board &board) = 0;
         bool canHop();
         // TODO: to incorporate PIECEVISITOR
         // void accept(PieceVisitor *pv);
         char getType();
+        char getColor();
         ~Piece();
 };
 #endif

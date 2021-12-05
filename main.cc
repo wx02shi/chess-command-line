@@ -135,7 +135,18 @@ int main() {
              * neither king is check
              * otherwise cannot leave setup
              */
-        } else {
+        }
+        
+        else if (command == "getValidMoves") {
+            auto b = game->getBoard();
+            auto pos = make_pair(3,7);
+            auto vec = b->getPiece(pos)->getValidMoves(pos, *b.get());
+            for (auto it : vec) {
+                cout << it.first << ' ' << it.second << endl;
+            }
+        }
+        
+        else {
             // print error msg
         }
     }

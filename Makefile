@@ -1,6 +1,6 @@
 CXX=g++
 CXXFLAGS=-std=c++14 -MMD -g
-OBJECTS=main.o game.o board.o textObserver.o subject.o queen.o player.o piece.o human.o boardIterator.o
+OBJECTS=main.o game.o board.o textObserver.o subject.o queen.o player.o piece.o human.o empty.o
 DEPENDS=${OBJECTS:.o=.d}
 EXEC=chess
 

@@ -1,5 +1,6 @@
 #include "board.h"
 #include "piece.h"
+#include "empty.h"
 #include "queen.h"
 
 #include <utility>
@@ -8,7 +9,14 @@
 using namespace std;
 
 
-Board::Board(){
+Board::Board() {
+    auto empty = make_shared<Empty>();
+    for (int i = 0; i <= 7; i++) {
+        for (int j = 0; j <= 7; j++) {
+            pieces[i][j] = empty;
+        }
+    }
+
     pieces[3][0] = make_shared<Queen>('w');
     pieces[3][7] = make_shared<Queen>('b');
 }
@@ -31,14 +39,16 @@ void Board::setPiece(shared_ptr<Piece> piece, pair<int, int> position) {
     pieces[position.first][position.second] = piece;
 }
 
-bool Board::isValidMove(Piece *piece, std::pair<int, int> position){
+bool Board::isValidMove(Piece &piece, std::pair<int, int> position) {
     return true;
 }
 
-void begin() {
-    return;
+/*
+BoardIterator Board::begin() {
+    return BoardIterator{make_shared<Board>((*this)), make_pair(0,0)};
 }
 
-void end() {
+BoardIterator Board::end() {
     return;
 }
+*/
