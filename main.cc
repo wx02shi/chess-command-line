@@ -6,10 +6,17 @@
 #include "board.h"
 #include "game.h"
 #include "human.h"
+
 #include "queen.h"
+#include "king.h"
+#include "bishop.h"
+#include "pawn.h"
+#include "knight.h"
+#include "rook.h"
 
 #include "observer.h"
 #include "textObserver.h"
+
 
 using namespace std;
 
@@ -85,9 +92,14 @@ int main() {
             if (endS.length() == 2) {
                 end = Game::translatePos(endS);
             }
-            // game->move(start, end);
+            game->movePiece(start, end);
+            game->render();
+
+            // TODO: modify isInCheck to better suit the Observers
+            game->isInCheck();
         }
         else if (command == "setup") {
+            game->getBoard()->clear();
             char setupTurn = 'w';
 
             if (!game->isStarted()) {
@@ -106,19 +118,20 @@ int main() {
                                 case 'Q':
                                     b->setPiece(make_shared<Queen>(setupTurn), Game::translatePos(pos));
                                     break;
+                                case 'K':
+                                    b->setPiece(make_shared<King>(setupTurn), Game::translatePos(pos));
+                                    break;
                             }
+                            game->render();
                         }
-
-                        game->render();
                     }
                     else if (command2 == "-") {
                         string pos;
                         cin >> pos;
                         if (pos.length() == 2) {
                             b->setPiece(nullptr, Game::translatePos(pos));
+                            game->render();
                         }
-
-                        game->render();
                     }
                     else if (command2 == "=") {
                         string colour;

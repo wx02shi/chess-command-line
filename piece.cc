@@ -17,4 +17,8 @@ char Piece::getColor() {
     return color;
 }
 
+bool Piece::hasMoved() {
+    return moved;
+}
+
 Piece::~Piece() {}

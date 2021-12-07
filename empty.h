@@ -7,6 +7,7 @@ class Empty: public Piece {
     public:
         Empty();
         std::vector<std::pair<int, int>> getValidMoves(std::pair<int, int> position, Board &board);
+        void accept(PieceVisitor &pv, std::pair<int, int> pos);
         ~Empty();
 };
 

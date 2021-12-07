@@ -1,4 +1,5 @@
 #include "queen.h"
+#include "PieceVisitor.h"
 
 #include <utility>
 #include <memory>
@@ -13,7 +14,8 @@ Queen::Queen(char color) : Piece{color} {
 vector<pair<int, int>> Queen::getValidMoves(pair<int, int> position, Board &board) {
     vector<pair<int, int>> results; // Results is all the valid moves (attacks or just moves)
     // fix this safety guard lmfao
-    if (board.getPiece(position).getType() != 'q' || board.getPiece(position).getType() != 'Q') {
+    
+    if (board.getPiece(position)->getType() != 'q' && board.getPiece(position)->getType() != 'Q') {
         return results;
     }
     
@@ -101,6 +103,10 @@ vector<pair<int, int>> Queen::getValidMoves(pair<int, int> position, Board &boar
     }
     
     return results;
+}
+
+void Queen::accept(PieceVisitor &pv, std::pair<int, int> pos) {
+    pv.visit(*this, pos);
 }
 
 Queen::~Queen() {}

@@ -1,1 +1,1 @@
-piece.o: piece.cc piece.h board.h
+piece.o: piece.cc piece.h board.h PieceVisitor.h

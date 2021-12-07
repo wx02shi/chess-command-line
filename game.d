@@ -1,1 +1,2 @@
-game.o: game.cc game.h board.h piece.h player.h subject.h human.h
+game.o: game.cc game.h board.h piece.h PieceVisitor.h player.h subject.h \
+ human.h isCheckVisitor.h

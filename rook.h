@@ -1,14 +1,17 @@
-#ifndef __QUEEN_H__
-#define __QUEEN_H__
+#ifndef __ROOK_H__
+#define __ROOK_H__
 
 #include "piece.h"
 
-class Queen: public Piece {
+class Rook: public Piece {
+    bool moved = false;
+
     public:
-        Queen(char color);
+        Rook(char color);
         std::vector<std::pair<int, int>> getValidMoves(std::pair<int, int> position, Board &board);
         void accept(PieceVisitor &pv, std::pair<int, int> pos);
-        ~Queen();
+
+        ~Rook();
 };
 
 #endif

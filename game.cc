@@ -5,6 +5,8 @@
 #include "board.h"
 #include "human.h"
 
+#include "isCheckVisitor.h"
+
 using namespace std;
 
 Game::Game() {
@@ -78,10 +80,40 @@ void Game::setBlack(shared_ptr<Player> p) {
     black = p;
 }
 
-/* have to implement:
-    bool Game::isInCheck() {}
-    bool Game::isInCheckmate() {}
-    bool Game::isStalemate() {}
+
+bool Game::isInCheck() {
+    /** NOTE: this can possibly be done with a BoardIterator,
+     * looping and calling iterator++()
+     * it would be beneficial for the other two functions as well
+     */
+
+    IsCheckVisitor checkVisitor{*board.get()};
+
+    bool isCheck = false;
+    for (int i = 0; i <= 7; i++) {
+        for (int j = 0; j <= 7; j++) {
+            auto pos = make_pair(i,j);
+            auto piece = board->getPiece(pos);
+            piece->accept(checkVisitor, pos);
+            char checkResult = checkVisitor.getCheck(); 
+            if (checkResult == 'b') {
+                cout << "Black is in check." << endl;
+                isCheck = true;
+                break;
+            } else if (checkResult == 'w') {
+                cout << "White is in check." << endl;
+                isCheck = true;
+                break;
+            }
+        }
+        if (isCheck) {break;}
+    }
+    return isCheck;
+}
+
+/*
+bool Game::isInCheckmate() {}
+bool Game::isStalemate() {}
 */
 
 char Game::getState(int row, int col) const {
@@ -95,6 +127,8 @@ char Game::getState(int row, int col) const {
 
 void Game::movePiece(pair<int, int> s, pair<int, int> end) {
     start();
+    auto piece = board->getPiece(s);
+    board->movePieceTo(piece, s, end);
     return;
 }
 
