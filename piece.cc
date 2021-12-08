@@ -21,4 +21,8 @@ bool Piece::hasMoved() {
     return moved;
 }
 
+void Piece::move() {
+    moved = true;
+}
+
 Piece::~Piece() {}

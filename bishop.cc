@@ -36,25 +36,29 @@ vector<pair<int, int>> Bishop::getValidMoves(pair<int, int> position, Board &boa
         
         if(!upLeftLimit){
             auto upLeft = board.getPiece(upLeftPos);
-            if (upLeft->getColor() != getColor()) { results.push_back(upLeftPos); } 
+            //if (upLeft->getColor() != getColor()) { results.push_back(upLeftPos); } 
+            results.push_back(upLeftPos);
             if (upLeft->getColor() != 0) { upLeftLimit = true; }
         }
         
         if (!upRightLimit) {
             auto upRight = board.getPiece(upRightPos);
-            if (upRight->getColor() != getColor()) { results.push_back(upRightPos); } 
+            // if (upRight->getColor() != getColor()) { results.push_back(upRightPos); } 
+            results.push_back(upRightPos);
             if (upRight->getColor() != 0) { upRightLimit = true; }
         }
         
         if (!downLeftLimit) {
             auto downLeft = board.getPiece(downLeftPos);
-            if (downLeft->getColor() != getColor()) { results.push_back(downLeftPos); } 
+            //if (downLeft->getColor() != getColor()) { results.push_back(downLeftPos); } 
+            results.push_back(downLeftPos);
             if (downLeft->getColor() != 0) { downLeftLimit = true; }
         }
         
         if (!downRightLimit) {
             auto downRight = board.getPiece(downRightPos);
-            if (downRight->getColor() != getColor()) { results.push_back(downRightPos); } 
+            //if (downRight->getColor() != getColor()) { results.push_back(downRightPos); }
+            results.push_back(downRightPos); 
             if (downRight->getColor() != 0) { downRightLimit = true; }
         }
 

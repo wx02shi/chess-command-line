@@ -18,6 +18,12 @@ class Game: public Subject {
     double wScore = 0;
     double bScore = 0;
     bool started = false;
+    char inCheck = 0;
+    /**
+     * 0: nothing
+     * w: white in check
+     * b: black in check
+     */
 
     public:
         

@@ -1,0 +1,13 @@
+game human human
+setup
++ K a2
+= black
++ Q b3
+= white
++ B e4
+= black
++ R b7
++ K a8
+done
+move e4 d3
+move b7 b3

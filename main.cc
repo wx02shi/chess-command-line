@@ -97,6 +97,8 @@ int main() {
 
             // TODO: modify isInCheck to better suit the Observers
             game->isInCheck();
+            game->isStalemate();
+            game->isInCheckmate();
         }
         else if (command == "setup") {
             game->getBoard()->clear();
@@ -120,6 +122,18 @@ int main() {
                                     break;
                                 case 'K':
                                     b->setPiece(make_shared<King>(setupTurn), Game::translatePos(pos));
+                                    break;
+                                case 'R':
+                                    b->setPiece(make_shared<Rook>(setupTurn), Game::translatePos(pos));
+                                    break;
+                                case 'N':
+                                    b->setPiece(make_shared<Knight>(setupTurn), Game::translatePos(pos));
+                                    break;
+                                case 'B':
+                                    b->setPiece(make_shared<Bishop>(setupTurn), Game::translatePos(pos));
+                                    break;
+                                case 'P':
+                                    b->setPiece(make_shared<Pawn>(setupTurn), Game::translatePos(pos));
                                     break;
                             }
                             game->render();
@@ -163,6 +177,10 @@ int main() {
             // print error msg
         }
     }
+
+    // Print game final score
+    game->printResults();
+
     // cout << "TEXTOBS COUNT OUTSIDE LOOP " << observers[0].use_count() << endl;
     game->empty();
     //cout << "DISPLAY GAME COUNT OUTSIDE LOOP " << game.use_count() << endl;

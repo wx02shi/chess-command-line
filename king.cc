@@ -45,43 +45,51 @@ vector<pair<int, int>> King::getValidMoves(pair<int, int> position, Board &board
     if (!upLimit) {
         auto up = board.getPiece(upPos);
         // Add valid move to an opponent piece or empty space
-        if (up->getColor() != getColor()) { results.push_back(upPos); }
+        //if (up->getColor() != getColor()) { results.push_back(upPos); }
+        results.push_back(upPos);
         // Check empty space 
         if (up->getColor() != 0) { upLimit = true; }
     }
     if (!downLimit) {
         auto down = board.getPiece(downPos);
-        if (down->getColor() != getColor()) { results.push_back(downPos); }
+        //if (down->getColor() != getColor()) { results.push_back(downPos); }
+        results.push_back(downPos);
         if (down->getColor() != 0) { downLimit = true; }
     }
     if (!leftLimit) {
         auto left = board.getPiece(leftPos);
-        if (left->getColor() != getColor()) { results.push_back(leftPos); } 
+        //if (left->getColor() != getColor()) { results.push_back(leftPos); } 
+        results.push_back(leftPos);
         if (left->getColor() != 0) { leftLimit = true; }
     }
     if (!rightLimit) {
         auto right = board.getPiece(rightPos);
-        if (right->getColor() != getColor()) { results.push_back(rightPos); } 
+        //if (right->getColor() != getColor()) { results.push_back(rightPos); } 
+        results.push_back(rightPos);
         if (right->getColor() != 0){ rightLimit = true; }
     }
     if(!upLeftLimit){
         auto upLeft = board.getPiece(upLeftPos);
-        if (upLeft->getColor() != getColor()) { results.push_back(upLeftPos); } 
+        //if (upLeft->getColor() != getColor()) { results.push_back(upLeftPos); } 
+        results.push_back(upLeftPos);
         if (upLeft->getColor() != 0) { upLeftLimit = true; }
     }
     if (!upRightLimit) {
         auto upRight = board.getPiece(upRightPos);
-        if (upRight->getColor() != getColor()) { results.push_back(upRightPos); } 
+        //if (upRight->getColor() != getColor()) { results.push_back(upRightPos); } 
+        results.push_back(upRightPos);
         if (upRight->getColor() != 0) { upRightLimit = true; }
     }
     if (!downLeftLimit) {
         auto downLeft = board.getPiece(downLeftPos);
-        if (downLeft->getColor() != getColor()) { results.push_back(downLeftPos); } 
+        //if (downLeft->getColor() != getColor()) { results.push_back(downLeftPos); } 
+        results.push_back(downLeftPos);
         if (downLeft->getColor() != 0) { downLeftLimit = true; }
     }
     if (!downRightLimit) {
         auto downRight = board.getPiece(downRightPos);
-        if (downRight->getColor() != getColor()) { results.push_back(downRightPos); } 
+        //if (downRight->getColor() != getColor()) { results.push_back(downRightPos); }
+        results.push_back(downRightPos); 
         if (downRight->getColor() != 0) { downRightLimit = true; }
     }
 
@@ -98,7 +106,7 @@ vector<pair<int, int>> King::getValidMoves(pair<int, int> position, Board &board
         shared_ptr<Rook> rightRook;
 
         // If the corner is a rook, check
-        if (leftCorner->getType() == 'r') {
+        if (leftCorner->getType() == 'r' || leftCorner->getType() == 'R') {
             //leftRook = (shared_ptr<Rook>) leftCorner;
             if (!leftCorner->hasMoved()) {
                 int index = 1;
@@ -117,7 +125,7 @@ vector<pair<int, int>> King::getValidMoves(pair<int, int> position, Board &board
                  */
             }
         }
-        if (rightCorner->getType() == 'r') {
+        if (rightCorner->getType() == 'r' || rightCorner->getType() == 'R' ) {
             //rightRook = rightCorner;
             if (!rightCorner->hasMoved()) {
                 int index = 1;

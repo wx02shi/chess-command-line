@@ -6,6 +6,7 @@
 #include "human.h"
 
 #include "isCheckVisitor.h"
+#include "isStalemateVisitor.h"
 
 using namespace std;
 
@@ -25,11 +26,13 @@ double Game::getFinalScore() {
 
 void Game::whiteWins() {
     wScore++;
+    cout << "White Wins!" << endl;
     reset();
 }
 
 void Game::blackWins() {
     bScore++;
+    cout << "Black Wins!" << endl;
     reset();
 }
 
@@ -95,34 +98,106 @@ bool Game::isInCheck() {
             auto pos = make_pair(i,j);
             auto piece = board->getPiece(pos);
             piece->accept(checkVisitor, pos);
-            char checkResult = checkVisitor.getCheck(); 
-            if (checkResult == 'b') {
+            inCheck = checkVisitor.getCheck(); 
+            if (inCheck == 'b') {
                 cout << "Black is in check." << endl;
                 isCheck = true;
                 break;
-            } else if (checkResult == 'w') {
+            } else if (inCheck == 'w') {
                 cout << "White is in check." << endl;
                 isCheck = true;
                 break;
             }
         }
-        if (isCheck) {break;}
+        if (isCheck) { break;}
     }
+    
     return isCheck;
 }
 
-/*
-bool Game::isInCheckmate() {}
-bool Game::isStalemate() {}
-*/
+bool Game::isStalemate() {
+    IsStalemateVisitor stalemateVisitor{*board.get()};
+
+    bool isStalemate = true;
+    for (int i = 0; i <= 7; i++) {
+        for (int j = 0; j <= 7; j++) {
+            auto pos = make_pair(i,j);
+            auto piece = board->getPiece(pos);
+            piece->accept(stalemateVisitor, pos);
+            bool stalemateResult = stalemateVisitor.getStalemate();
+            // there is no "stalemate" for that piece
+            // then for the player, there exists some legal move
+            if (!stalemateResult) { 
+                isStalemate = false;
+                break;
+            }
+        }
+        if (!isStalemate) { break; }
+    }
+
+    if (isStalemate) {
+        cout << "Stalemate!" << endl; 
+        tie();
+        
+    }
+    return isStalemate;
+}
+
+
+bool Game::isInCheckmate() {
+    if (inCheck != 0) {
+        vector<pair<int, int>> opponentThreat;
+        pair<int, int> checkedKing;
+        for (int i = 0; i <= 7; i++) {
+            for (int j = 0; j <= 7; j++) {
+                auto position = make_pair(i,j);
+                auto piece = board->getPiece(position);
+                if ((piece->getType() == 'k' || piece->getType() == 'K') &&
+                    piece->getColor() == inCheck) {
+                    checkedKing = position;
+                } else if (piece->getType() != 0) {
+                    auto validMoves = piece->getValidMoves(position, *board.get());
+                    opponentThreat.insert(opponentThreat.end(), validMoves.begin(), validMoves.end());
+                }
+            }
+        }
+
+        auto kingMoves = board->getPiece(checkedKing)->getValidMoves(checkedKing, *board.get());
+        for (auto km : kingMoves) {
+            // cout << "KING MOVE TILE: " << km.first << ' ' << km.second << endl;
+            bool threatened = false;
+
+            for (auto threat : opponentThreat) {
+                //cout << "THREATENED TILE: " << threat.first << ' ' << threat.second << endl;
+                if (km.first == threat.first && km.second == threat.second) {
+                    threatened = true;
+                    break;
+                }
+            }
+            if (!threatened) {
+                return false;
+            }
+        }
+        cout << "Checkmate! ";
+        if (inCheck == 'w') {
+            blackWins();
+        } else if (inCheck == 'b') {
+            whiteWins();
+        }
+        return true;
+    }
+    return false;
+}
+
 
 char Game::getState(int row, int col) const {
     auto thePiece = board->getPiece(make_pair(col, row));
-    if (thePiece != nullptr) {
+    /* if (thePiece != nullptr) {
         char c = thePiece->getType();
         return c;
     }
-    return 0;
+    return 0; */
+    return thePiece->getType();
 }
 
 void Game::movePiece(pair<int, int> s, pair<int, int> end) {

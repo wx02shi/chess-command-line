@@ -1,0 +1,7 @@
+game human human
+setup
++ P a7
+= black
++ P e1
+done
+move a7 a8

@@ -67,7 +67,6 @@ void Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
     bool isValid = false;
     auto validMovesVec = piece->getValidMoves(from, *this);
     for (auto pointPair : validMovesVec) {
-        
         if (pointPair.first == to.first && pointPair.second == to.second) {
             isValid = true;
             break;
@@ -89,9 +88,22 @@ void Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
         // TODO: what to do with the captured piece?
     }
     */
+    
+    // Check for castling
+    auto potentialMove = getPiece(to);
+    if (piece->getColor() == potentialMove->getColor()) {
+        if (potentialMove->getType() == 'r' || potentialMove->getType() == 'R') {
+            setPiece(potentialMove, from);
+            potentialMove->move();
+        } else {
+            // Do nothing if the move "eats" a piece of the same colour, that is not a castle.
+            return;
+        }
+    } else {
+        setPiece(make_shared<Empty>(), from);
+    }
     setPiece(piece, to);
-    setPiece(make_shared<Empty>(), from);
-
+    piece->move();
     return;
 }
 

@@ -38,26 +38,30 @@ vector<pair<int, int>> Rook::getValidMoves(pair<int, int> position, Board &board
         if (!upLimit) {
             auto up = board.getPiece(upPos);
             // Add valid move to an opponent piece or empty space
-            if (up->getColor() != getColor()) { results.push_back(upPos); }
+            //if (up->getColor() != getColor()) { results.push_back(upPos); }
+            results.push_back(upPos);
             // Check empty space 
             if (up->getColor() != 0) { upLimit = true; }
         }
 
         if (!downLimit) {
             auto down = board.getPiece(downPos);
-            if (down->getColor() != getColor()) { results.push_back(downPos); }
+            //if (down->getColor() != getColor()) { results.push_back(downPos); }
+            results.push_back(downPos);
             if (down->getColor() != 0) { downLimit = true; }
         }
 
         if (!leftLimit) {
             auto left = board.getPiece(leftPos);
-            if (left->getColor() != getColor()) { results.push_back(leftPos); } 
+            //if (left->getColor() != getColor()) { results.push_back(leftPos); } 
+            results.push_back(leftPos);
             if (left->getColor() != 0) { leftLimit = true; }
         }
         
         if (!rightLimit) {
             auto right = board.getPiece(rightPos);
-            if (right->getColor() != getColor()) { results.push_back(rightPos); } 
+            //if (right->getColor() != getColor()) { results.push_back(rightPos); }
+            results.push_back(rightPos); 
             if (right->getColor() != 0){ rightLimit = true; }
         }
 
