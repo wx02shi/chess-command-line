@@ -71,11 +71,8 @@ shared_ptr<Player> Game::getBlack() {
 }
 
 void Game::setWhite(shared_ptr<Player> p) {
-   
-    shared_ptr<Player> temp = make_shared<Player>('w');
-    
     // white = temp;
-    white = make_shared<Human>('w');
+    white = p;
     
 }
 
