@@ -13,10 +13,11 @@
 #include "pawn.h"
 #include "knight.h"
 #include "rook.h"
+#include "empty.h"
 
 #include "observer.h"
 #include "textObserver.h"
-
+#include "graphicsObserver.h"
 
 using namespace std;
 
@@ -54,8 +55,8 @@ int main() {
                 tempGame->setBlack(make_shared<Player>('b'));
             } 
             /* else if (bPlayer == "computer1") { game->getBlack() = make_shared<Computer>(1); }
-            else if (bPlayer == "computer2") { game->getBlack() = make_shared<Computer>(2); }
-            else if (bPlayer == "computer3") { game->getBlack() = make_shared<Computer>(3); }
+            else if (bPlayer == "compute2") { game->getBlack() = make_shared<Computer>(2); }
+            else if (bPlayer == "compute3") { game->getBlack() = make_shared<Computer>(3); }
             else if (bPlayer == "computer4") { game->getBlack() = make_shared<Computer>(4); }
              */else { invalidPlayer = true; }
 
@@ -64,6 +65,7 @@ int main() {
                 tempGame = nullptr;
                 // display game
                 observers.emplace_back(make_shared<TextObserver>(game));
+                // observers.emplace_back(make_shared<GraphicsObserver>(game));
                 // cout << "CREATE OBSERVER GAME COUNT: " << game.use_count() << endl;
                 // cout << "OBSERVERS SIZE: " << observers.size() << endl;
                 game->render();
@@ -92,13 +94,147 @@ int main() {
             if (endS.length() == 2) {
                 end = Game::translatePos(endS);
             }
-            game->movePiece(start, end);
-            game->render();
 
-            // TODO: modify isInCheck to better suit the Observers
-            game->isInCheck();
-            game->isStalemate();
-            game->isInCheckmate();
+            auto playerPiece = game->getBoard()->getPiece(start);
+            if (playerPiece->getColor() == turn) { //Move/turn guard
+                game->movePiece(start, end);
+            } else {
+                cout << "Cannot move the opponent's piece" << endl;
+            }
+
+            // You can't promote to a King, and ideally you wouldn't promote 
+            // to another pawn, it follows that there's only 4 pieces to promote
+            char toPromote;
+            auto thePiece = game->getBoard()->getPiece(end);
+            if (thePiece->getType() == 'p') {
+                if (end.second == 0) {
+                    cout << "What to promote? ";
+                    cin >> toPromote;
+                    if (toPromote == 'Q') {
+                        game->getBoard()->setPiece(make_shared<Queen>(turn), end);
+                    } else if (toPromote == 'R') {
+                        game->getBoard()->setPiece(make_shared<Rook>(turn), end);
+                    } else if (toPromote == 'B') {
+                        game->getBoard()->setPiece(make_shared<Bishop>(turn), end);
+                    } else if (toPromote == 'N') {
+                        game->getBoard()->setPiece(make_shared<Knight>(turn), end);
+                    }
+                }
+            } else if (thePiece->getType() == 'P'){
+                if (end.second == 7){
+                    cout << "What to promote? ";
+                    cin >> toPromote;
+                    if (toPromote == 'Q'){
+                        game->getBoard()->setPiece(make_shared<Queen>(turn), end);
+                    }
+                    if (toPromote == 'R'){
+                        game->getBoard()->setPiece(make_shared<Rook>(turn), end);
+                    }
+                    if (toPromote == 'B'){
+                        game->getBoard()->setPiece(make_shared<Bishop>(turn), end);
+                    }
+                    if (toPromote == 'N'){
+                        game->getBoard()->setPiece(make_shared<Knight>(turn), end);
+                    }
+                }
+            }
+            
+            game->updateGameState();
+            char gState = game->getGameState();
+
+            if (gState == turn || gState == turn - 32) {
+                game->undo();
+                cout << "Cannot move to cause a self-check." << endl;
+            } else {
+                game->render();
+                if (gState == 'W') {
+                    game->blackWins();
+                } else if (gState == 'B') {
+                    game->whiteWins();
+                } else if (gState == 's') {
+                    game->tie();
+                }
+                if (turn == 'w') {
+                    turn = 'b';
+                } else {
+                    turn = 'w';
+                }
+            }
+
+            /* string startS;
+            string endS;
+            pair<int, int> start;
+            pair<int, int> end;
+            
+            cin >> startS;
+            if (startS.length() == 2) {
+                start = Game::translatePos(startS);
+            }
+
+            cin >> endS;
+            if (endS.length() == 2) {
+                end = Game::translatePos(endS);
+            }
+
+            auto playerPiece = game->getBoard()->getPiece(start);
+            if (playerPiece->getType() == turn) { //Move/turn guard
+                game->movePiece(start, end);
+            } else {
+                cout << "Cannot move the opponent's piece" << endl;
+            }
+
+            // You can't promote to a King, and ideally you wouldn't promote 
+            // to another pawn, it follows that there's only 4 pieces to promote
+            char toPromote;
+            auto thePiece = game->getBoard()->getPiece(end);
+            if (thePiece->getType() == 'p') {
+                if (end.second == 0) {
+                    cout << "What to promote? ";
+                    cin >> toPromote;
+                    if (toPromote == 'Q') {
+                        game->getBoard()->setPiece(make_shared<Queen>(turn), end);
+                    } else if (toPromote == 'R') {
+                        game->getBoard()->setPiece(make_shared<Rook>(turn), end);
+                    } else if (toPromote == 'B') {
+                        game->getBoard()->setPiece(make_shared<Bishop>(turn), end);
+                    } else if (toPromote == 'N') {
+                        game->getBoard()->setPiece(make_shared<Knight>(turn), end);
+                    }
+                }
+            } else if (thePiece->getType() == 'P'){
+                if (end.second == 7){
+                    cout << "What to promote? ";
+                    cin >> toPromote;
+                    if (toPromote == 'Q'){
+                        game->getBoard()->setPiece(make_shared<Queen>(turn), end);
+                    }
+                    if (toPromote == 'R'){
+                        game->getBoard()->setPiece(make_shared<Rook>(turn), end);
+                    }
+                    if (toPromote == 'B'){
+                        game->getBoard()->setPiece(make_shared<Bishop>(turn), end);
+                    }
+                    if (toPromote == 'N'){
+                        game->getBoard()->setPiece(make_shared<Knight>(turn), end);
+                    }
+                }
+            }
+            
+            game->updateGameState();
+            char gState = game->getGameState();
+
+            if (gState == turn || gState == turn - 32) {
+                game->undo();
+            } else {
+                    game->render();
+                if (gState == 'W') {
+                    game->blackWins();
+                } else if (gState == 'B') {
+                    game->whiteWins();
+                } else if (gState == 's') {
+                    game->tie();
+                }
+            } */
         }
         else if (command == "setup") {
             game->getBoard()->clear();
@@ -108,7 +244,58 @@ int main() {
                 auto b = game->getBoard();
                 string command2;
                 while (cin >> command2) {
-                    if (command2 == "done") { break; }
+                    if (command2 == "done") { 
+                        // Check for a white king and a black king,
+                        // no pawns on the first and last row
+                        // neither king is in check
+                        bool valid = true;
+                        int wKingCount = 0, bKingCount = 0;
+                        for (int i = 0; i <= 7; i++) {
+                            for (int j = 0; j <= 7; j++) {
+                                auto position = make_pair(i,j);
+                                auto piece = b->getPiece(position);
+                                if (j == 0 || j == 7) { // check for pawns on first and last row
+                                    if (piece->getType() == 'p' ||
+                                        piece->getType() == 'P') {
+                                        cout << "Invalid setup, pawns can't be placed on first and last rows" << endl;
+                                        valid = false;
+                                        break;
+                                    }
+                                }
+                                if (piece->getType() == 'k' ||
+                                    piece->getType() == 'K' ) {
+                                    if (piece->getColor() == 'w') {
+                                        wKingCount++;
+                                    } else {
+                                        bKingCount++;
+                                    }
+                                    /* if (wKingCount > 1 || bKingCount > 1) {
+                                        valid = false;
+                                        break;
+                                    } */
+                                }
+                                if (!valid) {break;}
+                            }
+                        }
+
+                        if (wKingCount != 1 || bKingCount != 1) {
+                            cout << "Invalid setup, missing/too many kings" << endl;
+                            valid = false;
+                        }
+
+                        // Look for checks
+                        game->updateGameState();
+                        char gState = game->getGameState();
+                        if (gState == 'w' || gState == 'b') { 
+                            cout << "Invalid setup, king is in check" << endl;
+                            valid = false; 
+                        }
+
+                        if (valid) { 
+                            cout << "Setup completed!" << endl;
+                            break; 
+                        }
+                    }
                     else if (command2 == "+") {
                         char piece;
                         string pos;
@@ -143,7 +330,7 @@ int main() {
                         string pos;
                         cin >> pos;
                         if (pos.length() == 2) {
-                            b->setPiece(nullptr, Game::translatePos(pos));
+                            b->setPiece(make_shared<Empty>(), Game::translatePos(pos));
                             game->render();
                         }
                     }

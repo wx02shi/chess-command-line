@@ -75,5 +75,19 @@ void TextObserver::notify() {
     }
     out << "" << endl;
 
+    // Print gameState
+
+    char gState = subject->getGameState();
+    if (gState == 'w') {
+        cout << "White is in check." << endl;
+    } else if (gState == 'b') {
+        cout << "Black is in check." << endl;
+    } else if (gState == 'W') {
+        cout << "Checkmate! Black wins!" << endl;
+    } else if (gState == 'B') {
+        cout << "Checkmate! White wins!" << endl;
+    } else if (gState == 's') {
+        cout << "Stalemate!" << endl;
+    }
     //cout << "NOTIFY, SUBJECT SHARED_PTR COUNT " << subject.use_count() << endl;
 }

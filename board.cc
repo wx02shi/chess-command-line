@@ -75,6 +75,10 @@ void Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
 
     if (!isValid) { return; }
 
+    lastEatenPiece = getPiece(to);
+    lastMovedPiece = piece;
+    lastMoveStart = from;
+    lastMoveEnd = to;
     // uses setPiece twice: once to place the piece in the end spot,
     // a second time to set the starting point to null.
 
@@ -104,7 +108,14 @@ void Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
     }
     setPiece(piece, to);
     piece->move();
+
     return;
+}
+
+void Board::undo() {
+    setPiece(lastMovedPiece, lastMoveStart);
+    setPiece(lastEatenPiece, lastMoveEnd);
+    lastMovedPiece->undoMove();
 }
 
 void Board::setPiece(shared_ptr<Piece> piece, pair<int, int> position) {

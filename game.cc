@@ -26,13 +26,13 @@ double Game::getFinalScore() {
 
 void Game::whiteWins() {
     wScore++;
-    cout << "White Wins!" << endl;
+    // cout << "White Wins!" << endl;
     reset();
 }
 
 void Game::blackWins() {
     bScore++;
-    cout << "Black Wins!" << endl;
+    // cout << "Black Wins!" << endl;
     reset();
 }
 
@@ -83,36 +83,50 @@ void Game::setBlack(shared_ptr<Player> p) {
     black = p;
 }
 
+/**
+ * 0: no state
+ * w: white is in check
+ * b: black is in check
+ * W: white loses by checkmate
+ * B: black loses by checkmate
+ * s: stalemate
+ */
+void Game::updateGameState() {
+    char isCheck = isInCheck();
+    char isCheckmate = isInCheckmate();
+    bool isStale = isStalemate();
 
-bool Game::isInCheck() {
-    /** NOTE: this can possibly be done with a BoardIterator,
-     * looping and calling iterator++()
-     * it would be beneficial for the other two functions as well
-     */
+    if (isCheck != 0) { gState = isCheck; }
+    if (isStale) { gState = 's'; }
+    if (isCheckmate != 0) { gState = isCheckmate; }
+}
 
+char Game::getGameState() {
+    return gState;
+}
+
+char Game::isInCheck() {
     IsCheckVisitor checkVisitor{*board.get()};
 
-    bool isCheck = false;
     for (int i = 0; i <= 7; i++) {
         for (int j = 0; j <= 7; j++) {
             auto pos = make_pair(i,j);
             auto piece = board->getPiece(pos);
             piece->accept(checkVisitor, pos);
-            inCheck = checkVisitor.getCheck(); 
-            if (inCheck == 'b') {
-                cout << "Black is in check." << endl;
-                isCheck = true;
+            gState = checkVisitor.getCheck(); 
+            if (gState == 'b') {
+                // cout << "Black is in check." << endl;
+                gState = 'b';
                 break;
-            } else if (inCheck == 'w') {
-                cout << "White is in check." << endl;
-                isCheck = true;
+            } else if (gState == 'w') {
+                // cout << "White is in check." << endl;
+                gState = 'w';
                 break;
             }
         }
-        if (isCheck) { break;}
+        if (gState != 0) { break;}
     }
-    
-    return isCheck;
+    return gState;
 }
 
 bool Game::isStalemate() {
@@ -135,17 +149,17 @@ bool Game::isStalemate() {
         if (!isStalemate) { break; }
     }
 
-    if (isStalemate) {
+    /* if (isStalemate) {
         cout << "Stalemate!" << endl; 
         tie();
-        
-    }
+    } */
+
     return isStalemate;
 }
 
 
-bool Game::isInCheckmate() {
-    if (inCheck != 0) {
+char Game::isInCheckmate() {
+    if (gState == 'w' || gState == 'b') {
         vector<pair<int, int>> opponentThreat;
         pair<int, int> checkedKing;
         for (int i = 0; i <= 7; i++) {
@@ -153,7 +167,7 @@ bool Game::isInCheckmate() {
                 auto position = make_pair(i,j);
                 auto piece = board->getPiece(position);
                 if ((piece->getType() == 'k' || piece->getType() == 'K') &&
-                    piece->getColor() == inCheck) {
+                    piece->getColor() == gState) {
                     checkedKing = position;
                 } else if (piece->getType() != 0) {
                     auto validMoves = piece->getValidMoves(position, *board.get());
@@ -178,17 +192,20 @@ bool Game::isInCheckmate() {
                 return false;
             }
         }
-        cout << "Checkmate! ";
+        /* cout << "Checkmate! ";
         if (inCheck == 'w') {
             blackWins();
         } else if (inCheck == 'b') {
             whiteWins();
-        }
-        return true;
+        } */
+        return (gState - 32);
     }
-    return false;
+    return 0;
 }
 
+void Game::undo() {
+    board->undo();
+}
 
 char Game::getState(int row, int col) const {
     auto thePiece = board->getPiece(make_pair(col, row));

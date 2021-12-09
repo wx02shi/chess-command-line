@@ -13,7 +13,7 @@ class PieceVisitor;
 
 class Piece {
     char color;
-    bool moved = false;
+    int moved = 0;
     protected:
     char type; //type of piece
 
@@ -24,6 +24,7 @@ class Piece {
         bool canHop();
         bool hasMoved();
         void move();
+        void undoMove();
         char getType();
         char getColor();
         virtual void accept(PieceVisitor &pv, std::pair<int, int> pos) = 0;

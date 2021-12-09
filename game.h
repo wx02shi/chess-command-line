@@ -18,7 +18,7 @@ class Game: public Subject {
     double wScore = 0;
     double bScore = 0;
     bool started = false;
-    char inCheck = 0;
+    char gState = 0;
     /**
      * 0: nothing
      * w: white in check
@@ -43,12 +43,15 @@ class Game: public Subject {
         void setWhite(std::shared_ptr<Player> p);
         void setBlack(std::shared_ptr<Player> p);
         std::shared_ptr<Board> getBoard();
-        bool isInCheck();
-        bool isInCheckmate();
+        char isInCheck();
+        char isInCheckmate();
         bool isStalemate();
+        void updateGameState();
+        char getGameState();
         char getState(int row, int col) const override;
         // useful in this class or no?
         void movePiece(std::pair<int, int> s, std::pair<int, int> end);
+        void undo();
         void printResults(); //is this needed?
 };
 

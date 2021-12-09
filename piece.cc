@@ -18,11 +18,17 @@ char Piece::getColor() {
 }
 
 bool Piece::hasMoved() {
-    return moved;
+    return (moved > 0);
 }
 
 void Piece::move() {
-    moved = true;
+    moved++;
+}
+
+void Piece::undoMove() {
+    if (moved > 0) {
+        moved--;
+    }
 }
 
 Piece::~Piece() {}

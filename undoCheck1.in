@@ -1,9 +1,8 @@
 game human human
 setup
-+ P a7
-
++ K a2
 = black
-+ P e2
++ K h7
++ Q b7
 done
-move a7 a8
-move e2 e1
+move a2 b2
