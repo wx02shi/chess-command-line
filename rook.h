@@ -10,7 +10,7 @@ class Rook: public Piece {
         Rook(char color);
         std::vector<std::pair<int, int>> getValidMoves(std::pair<int, int> position, Board &board);
         void accept(PieceVisitor &pv, std::pair<int, int> pos);
-
+        int getValue();
         ~Rook();
 };
 

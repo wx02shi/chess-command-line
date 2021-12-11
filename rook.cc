@@ -71,6 +71,8 @@ vector<pair<int, int>> Rook::getValidMoves(pair<int, int> position, Board &board
     return results;
 }
 
+int Rook::getValue() { return 5; }
+
 void Rook::accept(PieceVisitor &pv, std::pair<int, int> pos) {
     pv.visit(*this, pos);
 }

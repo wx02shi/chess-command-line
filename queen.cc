@@ -114,6 +114,8 @@ vector<pair<int, int>> Queen::getValidMoves(pair<int, int> position, Board &boar
     return results;
 }
 
+int Queen::getValue() { return 9; }
+
 void Queen::accept(PieceVisitor &pv, std::pair<int, int> pos) {
     pv.visit(*this, pos);
 }

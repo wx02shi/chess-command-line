@@ -27,6 +27,7 @@ class Piece {
         void undoMove();
         char getType();
         char getColor();
+        virtual int getValue() = 0;
         virtual void accept(PieceVisitor &pv, std::pair<int, int> pos) = 0;
         ~Piece();
 };

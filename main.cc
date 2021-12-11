@@ -18,19 +18,20 @@
 
 #include "computer.h"
 #include "l1.h"
+#include "l2.h"
 
 #include "observer.h"
 #include "textObserver.h"
 #include "graphicsObserver.h"
+#include <time.h>
 
 using namespace std;
 
 
 
 int main() {
-    // Set seed once for computer RNG moves
-    // REMOVE LATER FOR RANDOMNESS
-    // srand(12345678);
+    // Set seed for actually random RNG moves
+    // srand(time(NULL));
     
     string command;
     char turn = 'w';
@@ -38,7 +39,6 @@ int main() {
 
     //Game g{board}; //canvas
     vector<shared_ptr<Observer>> observers; //shared ptr?
-    // shared_ptr<TextObserver> textObserver; //shared ptr?
 
 
     while (cin >> command) {
@@ -57,8 +57,10 @@ int main() {
                 // game->getWhite() = make_shared<Computer>('w', 1, make_shared<L1>()); 
                 tempGame->setWhite(make_shared<Computer>('w', 1, make_shared<L1>()));
             }
-            /* else if (wPlayer == "computer2") { game->getWhite() = make_shared<Computer>(2); }
-            else if (wPlayer == "computer3") { game->getWhite() = make_shared<Computer>(3); }
+            else if (wPlayer == "computer2") { 
+                tempGame->setWhite(make_shared<Computer>('w', 2, make_shared<L2>())); 
+            }
+            /* else if (wPlayer == "computer3") { game->getWhite() = make_shared<Computer>(3); }
             else if (wPlayer == "computer4") { game->getWhite() = make_shared<Computer>(4); }
              */ else { invalidPlayer = true; }
 
@@ -70,8 +72,11 @@ int main() {
                 // game->getBlack() = make_shared<Computer>('b', 1, make_shared<L1>()); 
                 tempGame->setBlack(make_shared<Computer>('b', 1, make_shared<L1>())); 
             }
-            /* else if (bPlayer == "compute2") { game->getBlack() = make_shared<Computer>(2); }
-            else if (bPlayer == "compute3") { game->getBlack() = make_shared<Computer>(3); }
+            else if (bPlayer == "computer2") { 
+                tempGame->setBlack(make_shared<Computer>('b', 2, make_shared<L2>())); 
+            }
+            
+            /* else --if (bPlayer == "compute3") { game->getBlack() = make_shared<Computer>(3); }
             else if (bPlayer == "computer4") { game->getBlack() = make_shared<Computer>(4); }
              */ else { invalidPlayer = true; }
 
@@ -81,6 +86,7 @@ int main() {
                 // display game
                 observers.emplace_back(make_shared<TextObserver>(game));
                 // observers.emplace_back(make_shared<GraphicsObserver>(game));
+                
                 // cout << "CREATE OBSERVER GAME COUNT: " << game.use_count() << endl;
                 // cout << "OBSERVERS SIZE: " << observers.size() << endl;
                 game->render();
@@ -100,21 +106,65 @@ int main() {
                 while (true) {
                     move = game->getWhite()->autoMove(*game->getBoard().get());
                     if (move.first != move.second) {
-                        break;
+                        game->movePiece(move.first, move.second);
+                        // Undo the move if the bot put itself into check
+                        game->updateGameState();
+                        char gState = game->getGameState();
+                        
+                        if (gState == turn || gState == turn - 32) {
+                            game->undo();
+                        } else {
+                            game->render();
+                            if (gState == 'W') {
+                                game->blackWins();
+                            } else if (gState == 'B') {
+                                game->whiteWins();
+                            } else if (gState == 's') {
+                                game->tie();
+                            }
+                            if (turn == 'w') {
+                                turn = 'b';
+                            } else {
+                                turn = 'w';
+                            }
+                            break;
+                        }
                     }
                 }
+                // cout << "WHITE MOVE PAIR (" << "" + move.first.first +1 + 97 << move.first.second +1 << "), (" << "" + move.second.first +1 + 97 << move.second.second +1 << ")" << endl;
                 cout << "WHITE MOVE PAIR (" << move.first.first << ", " << move.first.second << "), (" << move.second.first << ", " << move.second.second << ")" << endl;
             } else if (turn == 'b' && game->getBlack()->getType() == 'c') {
                 pair<pair<int, int>, pair<int, int>> move;
                 while (true) {
                     move = game->getBlack()->autoMove(*game->getBoard().get());
                     if (move.first != move.second) {
-                        break;
+                        game->movePiece(move.first, move.second);
+                        // Undo the move if the bot put itself into check
+                        game->updateGameState();
+                        char gState = game->getGameState();
+                        
+                        if (gState == turn || gState == turn - 32) {
+                            game->undo();
+                        } else {
+                            game->render();
+                            if (gState == 'W') {
+                                game->blackWins();
+                            } else if (gState == 'B') {
+                                game->whiteWins();
+                            } else if (gState == 's') {
+                                game->tie();
+                            }
+                            if (turn == 'w') {
+                                turn = 'b';
+                            } else {
+                                turn = 'w';
+                            }
+                            break;
+                        }
                     }
                 }
-                
+                // cout << "BLACK MOVE PAIR (" << "" + move.first.first +1 + 97 << move.first.second +1 << "), (" << "" + move.second.first +1 + 97 << move.second.second +1 << ")" << endl;
                 cout << "BLACK MOVE PAIR (" << move.first.first << ", " << move.first.second << "), (" << move.second.first << ", " << move.second.second << ")" << endl;
-                
             } else {
                 string startS;
                 string endS;
@@ -133,68 +183,71 @@ int main() {
 
                 auto playerPiece = game->getBoard()->getPiece(start);
                 if (playerPiece->getColor() == turn) { //Move/turn guard
-                    game->movePiece(start, end);
+                    bool validMove = game->movePiece(start, end);
+                    if (validMove) {
+                        // You can't promote to a King, and ideally you wouldn't promote 
+                        // to another pawn, it follows that there's only 4 pieces to promote
+                        char toPromote;
+                        auto thePiece = game->getBoard()->getPiece(end);
+                        if (thePiece->getType() == 'p') {
+                            if (end.second == 0) {
+                                cout << "What to promote? ";
+                                cin >> toPromote;
+                                if (toPromote == 'Q') {
+                                    game->getBoard()->setPiece(make_shared<Queen>(turn), end);
+                                } else if (toPromote == 'R') {
+                                    game->getBoard()->setPiece(make_shared<Rook>(turn), end);
+                                } else if (toPromote == 'B') {
+                                    game->getBoard()->setPiece(make_shared<Bishop>(turn), end);
+                                } else if (toPromote == 'N') {
+                                    game->getBoard()->setPiece(make_shared<Knight>(turn), end);
+                                }
+                            }
+                        } else if (thePiece->getType() == 'P'){
+                            if (end.second == 7){
+                                cout << "What to promote? ";
+                                cin >> toPromote;
+                                if (toPromote == 'Q'){
+                                    game->getBoard()->setPiece(make_shared<Queen>(turn), end);
+                                }
+                                if (toPromote == 'R'){
+                                    game->getBoard()->setPiece(make_shared<Rook>(turn), end);
+                                }
+                                if (toPromote == 'B'){
+                                    game->getBoard()->setPiece(make_shared<Bishop>(turn), end);
+                                }
+                                if (toPromote == 'N'){
+                                    game->getBoard()->setPiece(make_shared<Knight>(turn), end);
+                                }
+                            }
+                        }
+                        
+                        game->updateGameState();
+                        char gState = game->getGameState();
+
+                        if (gState == turn || gState == turn - 32) {
+                            game->undo();
+                            cout << "Cannot move to cause a self-check." << endl;
+                        } else {
+                            game->render();
+                            if (gState == 'W') {
+                                game->blackWins();
+                            } else if (gState == 'B') {
+                                game->whiteWins();
+                            } else if (gState == 's') {
+                                game->tie();
+                            }
+                            if (turn == 'w') {
+                                turn = 'b';
+                            } else {
+                                turn = 'w';
+                            }
+                        }
+                    } else {
+                        cout << "Invalid move" << endl;
+                    }
                 } else {
                     cout << "Cannot move the opponent's piece" << endl;
-                }
-
-                // You can't promote to a King, and ideally you wouldn't promote 
-                // to another pawn, it follows that there's only 4 pieces to promote
-                char toPromote;
-                auto thePiece = game->getBoard()->getPiece(end);
-                if (thePiece->getType() == 'p') {
-                    if (end.second == 0) {
-                        cout << "What to promote? ";
-                        cin >> toPromote;
-                        if (toPromote == 'Q') {
-                            game->getBoard()->setPiece(make_shared<Queen>(turn), end);
-                        } else if (toPromote == 'R') {
-                            game->getBoard()->setPiece(make_shared<Rook>(turn), end);
-                        } else if (toPromote == 'B') {
-                            game->getBoard()->setPiece(make_shared<Bishop>(turn), end);
-                        } else if (toPromote == 'N') {
-                            game->getBoard()->setPiece(make_shared<Knight>(turn), end);
-                        }
-                    }
-                } else if (thePiece->getType() == 'P'){
-                    if (end.second == 7){
-                        cout << "What to promote? ";
-                        cin >> toPromote;
-                        if (toPromote == 'Q'){
-                            game->getBoard()->setPiece(make_shared<Queen>(turn), end);
-                        }
-                        if (toPromote == 'R'){
-                            game->getBoard()->setPiece(make_shared<Rook>(turn), end);
-                        }
-                        if (toPromote == 'B'){
-                            game->getBoard()->setPiece(make_shared<Bishop>(turn), end);
-                        }
-                        if (toPromote == 'N'){
-                            game->getBoard()->setPiece(make_shared<Knight>(turn), end);
-                        }
-                    }
-                }
-                
-                game->updateGameState();
-                char gState = game->getGameState();
-
-                if (gState == turn || gState == turn - 32) {
-                    game->undo();
-                    cout << "Cannot move to cause a self-check." << endl;
-                } else {
-                    game->render();
-                    if (gState == 'W') {
-                        game->blackWins();
-                    } else if (gState == 'B') {
-                        game->whiteWins();
-                    } else if (gState == 's') {
-                        game->tie();
-                    }
-                    if (turn == 'w') {
-                        turn = 'b';
-                    } else {
-                        turn = 'w';
-                    }
                 }
             }
         }

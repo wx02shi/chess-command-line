@@ -14,6 +14,8 @@ vector<pair<int, int>> Empty::getValidMoves(pair<int, int> position, Board &boar
     return results;
 }
 
+int Empty::getValue() { return 0; }
+
 void Empty::accept(PieceVisitor &pv, std::pair<int, int> pos) {
     pv.visit(*this, pos);
 }

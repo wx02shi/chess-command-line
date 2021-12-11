@@ -214,11 +214,11 @@ char Game::getState(int row, int col) const {
     return thePiece->getType();
 }
 
-void Game::movePiece(pair<int, int> s, pair<int, int> end) {
+bool Game::movePiece(pair<int, int> s, pair<int, int> end) {
     start();
     auto piece = board->getPiece(s);
-    board->movePieceTo(piece, s, end);
-    return;
+    bool result = board->movePieceTo(piece, s, end);
+    return result;
 }
 
 //output Score:

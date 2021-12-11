@@ -68,6 +68,7 @@ vector<pair<int, int>> Bishop::getValidMoves(pair<int, int> position, Board &boa
     return results;
 }
 
+int Bishop::getValue() { return 3; }
 
 void Bishop::accept(PieceVisitor &pv, std::pair<int, int> pos) {
     pv.visit(*this, pos);

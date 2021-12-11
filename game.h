@@ -50,7 +50,7 @@ class Game: public Subject {
         char getGameState();
         char getState(int row, int col) const override;
         // useful in this class or no?
-        void movePiece(std::pair<int, int> s, std::pair<int, int> end);
+        bool movePiece(std::pair<int, int> s, std::pair<int, int> end);
         void undo();
         void printResults(); //is this needed?
 };

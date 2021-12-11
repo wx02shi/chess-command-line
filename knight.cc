@@ -108,6 +108,8 @@ vector<pair<int, int>> Knight::getValidMoves(pair<int, int> position, Board &boa
   return results;
 }
 
+int Knight::getValue(){ return 3; }
+
 void Knight::accept(PieceVisitor &pv, std::pair<int, int> pos) {
     pv.visit(*this, pos);
 }

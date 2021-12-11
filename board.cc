@@ -62,7 +62,7 @@ vector<vector<shared_ptr<Piece>>> Board::getPieces() {
 */
 
 // void Board::movePieceTo(Piece *piece, pair<int, int> position){
-void Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, int> to){
+bool Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, int> to){
     // get valid moves of the piece
     bool isValid = false;
     auto validMovesVec = piece->getValidMoves(from, *this);
@@ -73,7 +73,7 @@ void Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
         }
     }
 
-    if (!isValid) { return; }
+    if (!isValid) { return false; }
 
     lastEatenPiece = getPiece(to);
     lastMovedPiece = piece;
@@ -101,7 +101,7 @@ void Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
             potentialMove->move();
         } else {
             // Do nothing if the move "eats" a piece of the same colour, that is not a castle.
-            return;
+            return false;
         }
     } else {
         setPiece(make_shared<Empty>(), from);
@@ -109,7 +109,7 @@ void Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
     setPiece(piece, to);
     piece->move();
 
-    return;
+    return true;
 }
 
 void Board::undo() {

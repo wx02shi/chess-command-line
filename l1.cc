@@ -20,9 +20,9 @@ pair<pair<int, int>, pair<int, int>> L1::computerMove(char color, Board &board) 
         }
     }
 
-    // finds range between 1 to 16, maybe instead, it's 1 to size of myPieces
+    // finds range between 0 to 15, maybe instead, it's 1 to size of myPieces
     // test to ensure the range is correct
-    int rngPiece = 1 + ( rand() % (myPieces.size() - 1));
+    int rngPiece = rand() % (myPieces.size() - 0);
 
     // choose a random valid move for this piece to make
     auto startingPos = myPieces[rngPiece];
@@ -37,10 +37,11 @@ pair<pair<int, int>, pair<int, int>> L1::computerMove(char color, Board &board) 
     if (moves.size() == 0) {
         return make_pair(startingPos, startingPos);
     }
-    
+
     // cout << "PIECE: " << piece->getType() << " MOVE SIZE: " << moves.size() << endl;
 
-    int rngMove = 1 + ( std::rand() % ( moves.size() - 1 ) );
+    
+    int rngMove = rand() % ( moves.size() - 0 );
 
     return make_pair(startingPos, moves[rngMove]);
 }
