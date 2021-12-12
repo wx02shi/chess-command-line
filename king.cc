@@ -98,6 +98,8 @@ vector<pair<int, int>> King::getValidMoves(pair<int, int> position, Board &board
         // check for rooks in the corners of the same row
         auto lc = make_pair(0, position.second);
         auto rc = make_pair(7, position.second);
+        auto lCastle = make_pair(2, position.second);
+        auto rCastle = make_pair(6, position.second);
         auto leftCorner = board.getPiece(lc);
         auto rightCorner = board.getPiece(rc);
         bool leftBlocked = false;
@@ -119,7 +121,7 @@ vector<pair<int, int>> King::getValidMoves(pair<int, int> position, Board &board
                     index++;
                 }
                 
-                if (!leftBlocked) { results.push_back(lc); }
+                if (!leftBlocked) { results.push_back(lCastle); }
                 /** NOTE: move() function should be able to tell that a 
                  * king attacking it's own rook is a castle move.
                  */
@@ -138,7 +140,7 @@ vector<pair<int, int>> King::getValidMoves(pair<int, int> position, Board &board
                     index++;
                 }
 
-                if (!rightBlocked) { results.push_back(rc); }
+                if (!rightBlocked) { results.push_back(rCastle); }
             }
         }
     }

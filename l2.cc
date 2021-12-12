@@ -46,7 +46,7 @@ pair<pair<int, int>, pair<int, int>> L2::computerMove(char color, Board &board, 
     // compute the best piece to capture
     if (allPiecesMoves.size() > 0) {
       for (int i = 0; i < allPiecesMoves.size(); i++) {
-        cout << "HIGHEST VALUE: " << HIGHEST_VALUE_TO_CAPTURE << endl;
+        // cout << "HIGHEST VALUE: " << HIGHEST_VALUE_TO_CAPTURE << endl;
         auto pieceMove = allPiecesMoves[i];
         auto thePiece = board.getPiece(pieceMove.second);
         if (thePiece->getColor() != color) {

@@ -178,12 +178,12 @@ char Game::isInCheckmate() {
         auto kingMoves = board->getPiece(checkedKing)->getValidMoves(checkedKing, *board.get());
         for (auto km : kingMoves) {
             // cout << "KING MOVE TILE: " << km.first << ' ' << km.second << endl;
-            bool threatened = false;
+            bool threatened = true;
 
             for (auto threat : opponentThreat) {
                 //cout << "THREATENED TILE: " << threat.first << ' ' << threat.second << endl;
-                if (km.first == threat.first && km.second == threat.second) {
-                    threatened = true;
+                if (km.first != threat.first || km.second != threat.second) {
+                    threatened = false;
                     break;
                 }
             }

@@ -31,7 +31,7 @@ using namespace std;
 
 int main() {
     // Set seed for actually random RNG moves
-    // srand(time(NULL));
+    srand(time(NULL));
     
     string command;
     // char turn = 'w';
@@ -90,7 +90,7 @@ int main() {
                 tempGame = nullptr;
                 // display game
                 observers.emplace_back(make_shared<TextObserver>(game));
-                // observers.emplace_back(make_shared<GraphicsObserver>(game));
+                observers.emplace_back(make_shared<GraphicsObserver>(game));
                 
                 // cout << "CREATE OBSERVER GAME COUNT: " << game.use_count() << endl;
                 // cout << "OBSERVERS SIZE: " << observers.size() << endl;
@@ -165,7 +165,7 @@ int main() {
                     }
                 }
                 // cout << "WHITE MOVE PAIR (" << "" + move.first.first +1 + 97 << move.first.second +1 << "), (" << "" + move.second.first +1 + 97 << move.second.second +1 << ")" << endl;
-                cout << "WHITE MOVE PAIR (" << move.first.first << ", " << move.first.second << "), (" << move.second.first << ", " << move.second.second << ")" << endl;
+                // cout << "WHITE MOVE PAIR (" << move.first.first << ", " << move.first.second << "), (" << move.second.first << ", " << move.second.second << ")" << endl;
             } else if (turn == 'b' && game->getBlack()->getType() == 'c') {
                 pair<pair<int, int>, pair<int, int>> move;
                 while (true) {
@@ -222,7 +222,7 @@ int main() {
                     }
                 }
                 // cout << "BLACK MOVE PAIR (" << "" + move.first.first +1 + 97 << move.first.second +1 << "), (" << "" + move.second.first +1 + 97 << move.second.second +1 << ")" << endl;
-                cout << "BLACK MOVE PAIR (" << move.first.first << ", " << move.first.second << "), (" << move.second.first << ", " << move.second.second << ")" << endl;
+                // cout << "BLACK MOVE PAIR (" << move.first.first << ", " << move.first.second << "), (" << move.second.first << ", " << move.second.second << ")" << endl;
             } else {
                 string startS;
                 string endS;
