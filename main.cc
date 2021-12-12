@@ -31,7 +31,7 @@ using namespace std;
 
 int main() {
     // Set seed for actually random RNG moves
-    srand(time(NULL));
+    // srand(time(NULL));
     
     string command;
     // char turn = 'w';
@@ -90,7 +90,7 @@ int main() {
                 tempGame = nullptr;
                 // display game
                 observers.emplace_back(make_shared<TextObserver>(game));
-                //observers.emplace_back(make_shared<GraphicsObserver>(game));
+                // observers.emplace_back(make_shared<GraphicsObserver>(game));
                 
                 // cout << "CREATE OBSERVER GAME COUNT: " << game.use_count() << endl;
                 // cout << "OBSERVERS SIZE: " << observers.size() << endl;
@@ -112,6 +112,7 @@ int main() {
                 while (true) {
                     // cout << "is this looping?" << endl;
                     move = game->getWhite()->autoMove(*game->getBoard().get(), *game.get());
+                    cout << "(" << move.first.first << ", " << move.first.second << "), (" << move.second.first << ", " << move.second.second << ")" << endl;
                     if (move.first != move.second) {
                         game->movePiece(move.first, move.second);
 
@@ -170,6 +171,7 @@ int main() {
                 pair<pair<int, int>, pair<int, int>> move;
                 while (true) {
                     move = game->getBlack()->autoMove(*game->getBoard().get(), *game.get());
+                    cout << "(" << move.first.first << ", " << move.first.second << "), (" << move.second.first << ", " << move.second.second << ")" << endl;
                     if (move.first != move.second) {
                         game->movePiece(move.first, move.second);
                         

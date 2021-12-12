@@ -8,7 +8,7 @@
 
 using namespace std;
 
-pair<pair<int, int>, pair<int, int>> L1::computerMove(char color, Board &board, Game &game) {
+pair<pair<int, int>, pair<int, int>> L1::computerMove(char color, Board &board, Game &game) {    
     // find all pieces which belong to this bot
     vector<pair<int, int>> myPieces;
     for (int i = 0; i <= 7; i++) {
@@ -45,12 +45,21 @@ pair<pair<int, int>, pair<int, int>> L1::computerMove(char color, Board &board, 
         // cout << "l1 valid moves size: " << allValidMoves.size() << endl;
         int rngMove = rand() % ( allValidMoves.size() - 0 );
         auto potentialMove = allValidMoves[rngMove];
+        auto pieceToMove = board.getPiece(potentialMove.first);
+        auto potentialCapture = board.getPiece(potentialMove.second);
         // auto thePiece = board.getPiece(potentialMove.first);
         board.movePieceTo(board.getPiece(potentialMove.first), potentialMove.first, potentialMove.second);
         game.updateGameState();
 
         char gState = game.getGameState();
         if (gState == color || gState == color - 32) {
+            // ignore cases where moving causes a self-check
+            allValidMoves.erase(allValidMoves.begin() + rngMove);
+            
+        } else if ((pieceToMove->getType() == 'p' || pieceToMove->getType() == 'P') &&
+                    potentialMove.first.first != potentialMove.second.first && 
+                    (potentialCapture->getColor() == 0 || potentialCapture->getColor() == color)) {
+            /** Ignore cases where pawns move diagonally without capturing an opponent piece */
             allValidMoves.erase(allValidMoves.begin() + rngMove);
         } else {
             move = rngMove;

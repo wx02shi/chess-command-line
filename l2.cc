@@ -28,7 +28,12 @@ pair<pair<int, int>, pair<int, int>> L2::computerMove(char color, Board &board, 
     // Generate all moves by that piece
     auto pieceMoves = thePiece->getValidMoves(piecePos, board);
     for (auto pieceMove : pieceMoves) {
-      if (board.getPiece(pieceMove)->getColor() != color) {
+      if ((thePiece->getType() == 'p' || thePiece->getType() == 'P') &&
+            (piecePos.first != pieceMove.first) &&
+            (board.getPiece(pieceMove)->getColor() == color || 
+            board.getPiece(pieceMove)->getColor() == 0)) {
+              // ignore cases where pawns move diagonally without capturing an opponent piece
+      } else if (board.getPiece(pieceMove)->getColor() != color) {
         allPiecesMoves.push_back(make_pair(piecePos, pieceMove));
       }
     }
