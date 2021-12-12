@@ -57,15 +57,15 @@ vector<pair<int, int>> Pawn::getValidMoves(pair<int, int> position, Board &board
 
         if (!upLeftLimit){
             auto upLeft = board.getPiece(upLeftPos);
-            if (upLeft->getColor() != getColor() && upLeft->getColor() != 0) { results.push_back(upLeftPos); }
-            // results.push_back(upLeftPos);
+            // if (upLeft->getColor() != getColor() && upLeft->getColor() != 0) { results.push_back(upLeftPos); }
+            results.push_back(upLeftPos);
             // if (upLeft->getColor() != 0) { upLeftLimit = true; }
         }
 
         if (!upRightLimit){
             auto upRight = board.getPiece(upRightPos);
-            if (upRight->getColor() != getColor() && upRight->getColor() != 0) { results.push_back(upRightPos); }
-            // results.push_back(upRightPos); 
+            // if (upRight->getColor() != getColor() && upRight->getColor() != 0) { results.push_back(upRightPos); }
+            results.push_back(upRightPos); 
             // if (upRight->getColor() != 0) { upRightLimit = true; }
         }
 
@@ -87,15 +87,15 @@ vector<pair<int, int>> Pawn::getValidMoves(pair<int, int> position, Board &board
 
         if (!upLeftLimit){
             auto upLeft = board.getPiece(upLeftPos);
-            if (upLeft->getColor() != getColor() && upLeft->getColor() != 0) { results.push_back(upLeftPos); }
-            // results.push_back(upLeftPos);
+            // if (upLeft->getColor() != getColor() && upLeft->getColor() != 0) { results.push_back(upLeftPos); }
+            results.push_back(upLeftPos);
             // if (upLeft->getColor() != 0) { upLeftLimit = true; }
         }
 
         if (!upRightLimit){
             auto upRight = board.getPiece(upRightPos);
-            if (upRight->getColor() != getColor() && upRight->getColor() != 0) { results.push_back(upRightPos); }
-            // results.push_back(upRightPos);
+            // if (upRight->getColor() != getColor() && upRight->getColor() != 0) { results.push_back(upRightPos); }
+            results.push_back(upRightPos);
             // if (upRight->getColor() != 0) { upRightLimit = true; }
         }
         

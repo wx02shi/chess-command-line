@@ -119,7 +119,16 @@ bool Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
         }
     }
     
-
+    // Deny a pawn moving diagonally if it's not capturing an opponent piece
+    if ((piece->getType() == 'p' || piece->getType() == 'P')) {
+        if (from.first != to.first) {
+            auto potentialCapture = getPiece(to);
+            char captureColor = potentialCapture->getColor();
+            if (captureColor == 0 || captureColor == piece->getColor()) {
+                return false;
+            }
+        }
+    }
 
 
     /* auto potentialMove = getPiece(to);

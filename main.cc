@@ -90,7 +90,7 @@ int main() {
                 tempGame = nullptr;
                 // display game
                 observers.emplace_back(make_shared<TextObserver>(game));
-                observers.emplace_back(make_shared<GraphicsObserver>(game));
+                //observers.emplace_back(make_shared<GraphicsObserver>(game));
                 
                 // cout << "CREATE OBSERVER GAME COUNT: " << game.use_count() << endl;
                 // cout << "OBSERVERS SIZE: " << observers.size() << endl;

@@ -176,19 +176,49 @@ char Game::isInCheckmate() {
         }
 
         auto kingMoves = board->getPiece(checkedKing)->getValidMoves(checkedKing, *board.get());
-        for (auto km : kingMoves) {
+        /* for (auto km : kingMoves) {
             // cout << "KING MOVE TILE: " << km.first << ' ' << km.second << endl;
             bool threatened = true;
 
-            for (auto threat : opponentThreat) {
-                //cout << "THREATENED TILE: " << threat.first << ' ' << threat.second << endl;
-                if (km.first != threat.first || km.second != threat.second) {
-                    threatened = false;
-                    break;
+            auto piece = board->getPiece(km);
+            if (piece->getColor() != board->getPiece(checkedKing)->getColor()) {
+                for (auto threat : opponentThreat) {
+                    // cout << "THREATENED TILE: " << threat.first << ' ' << threat.second << endl;
+                    if (km.first != threat.first || km.second != threat.second) {
+                        cout << km.first << ", " << km.second << endl;
+                        cout << threat.first << ", " << threat.second << endl;
+                        threatened = false;
+                        break;
+                    }
                 }
             }
+            
             if (!threatened) {
-                return false;
+                return 0;
+            }
+        } */
+
+        bool allFound = true;
+        for (auto km : kingMoves) {
+            auto piece = board->getPiece(km);
+
+            if (piece->getColor() != board->getPiece(checkedKing)->getColor()) {
+                bool thisFound = false;
+                for (auto threat : opponentThreat) {
+                    if (km == threat) {
+                        thisFound = true;
+                        cout << km.first << ", " << km.second << endl;
+                        cout << threat.first << ", " << threat.second << endl;
+                        break;
+                    }
+                    
+                }
+                if (thisFound) {
+                    continue;
+                } else {
+                    allFound = false;
+                    break;
+                }
             }
         }
         /* cout << "Checkmate! ";
@@ -197,7 +227,12 @@ char Game::isInCheckmate() {
         } else if (inCheck == 'b') {
             whiteWins();
         } */
-        return (gState - 32);
+        if (allFound) {
+            return (gState - 32);
+        } else {
+            return 0;
+        }
+        
     }
     return 0;
 }
