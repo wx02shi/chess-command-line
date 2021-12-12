@@ -34,11 +34,16 @@ int main() {
     // srand(time(NULL));
     
     string command;
-    char turn = 'w';
+    // char turn = 'w';
     shared_ptr<Game> game;
 
     //Game g{board}; //canvas
     vector<shared_ptr<Observer>> observers; //shared ptr?
+
+    // Bot pawn promotion
+    int whitePromotableIdx = 0;
+    int blackPromotableIdx = 0;
+    vector<char> promotablePieces = {'Q', 'R', 'B', 'N'};
 
 
     while (cin >> command) {
@@ -97,10 +102,11 @@ int main() {
             // }
         }
         else if (command == "resign") {
-            if (turn == 'w') { game->blackWins(); }
+            if (game->getTurn() == 'w') { game->blackWins(); }
             else { game->whiteWins(); }
         }
         else if (command == "move") {
+            char turn = game->getTurn();
             if (turn == 'w' && game->getWhite()->getType() == 'c') {
                 pair<pair<int, int>, pair<int, int>> move;
                 while (true) {
@@ -108,6 +114,29 @@ int main() {
                     move = game->getWhite()->autoMove(*game->getBoard().get(), *game.get());
                     if (move.first != move.second) {
                         game->movePiece(move.first, move.second);
+
+                        // Pawn promotion
+                        auto thePiece = game->getBoard()->getPiece(move.second);
+                        if (thePiece->getType() == 'P'){
+                            if (move.second.second == 7) {
+                                if (whitePromotableIdx == 0) {
+                                    game->getBoard()->setPiece(make_shared<Queen>(turn), move.second);
+                                } else if (whitePromotableIdx == 1) {
+                                    game->getBoard()->setPiece(make_shared<Rook>(turn), move.second);
+                                } else if (whitePromotableIdx == 2) {
+                                    game->getBoard()->setPiece(make_shared<Bishop>(turn), move.second);
+                                } else if (whitePromotableIdx == 3) {
+                                    game->getBoard()->setPiece(make_shared<Knight>(turn), move.second);
+                                }
+
+                                whitePromotableIdx++;
+                            }
+
+                            if (whitePromotableIdx == 4) {
+                                whitePromotableIdx = 0;
+                            }
+                        } 
+
                         // Undo the move if the bot put itself into check
                         game->updateGameState();
                         char gState = game->getGameState();
@@ -125,11 +154,12 @@ int main() {
                             } else if (gState == 's') {
                                 game->tie();
                             }
-                            if (turn == 'w') {
+                            /* if (turn == 'w') {
                                 turn = 'b';
                             } else {
                                 turn = 'w';
-                            }
+                            } */
+                            game->nextTurn();
                             break;
                         }
                     }
@@ -142,6 +172,29 @@ int main() {
                     move = game->getBlack()->autoMove(*game->getBoard().get(), *game.get());
                     if (move.first != move.second) {
                         game->movePiece(move.first, move.second);
+                        
+                        // Pawn promotion
+                        auto thePiece = game->getBoard()->getPiece(move.second);
+                        if (thePiece->getType() == 'p'){
+                            if (move.second.second == 0) {
+                                if (blackPromotableIdx == 0) {
+                                    game->getBoard()->setPiece(make_shared<Queen>(turn), move.second);
+                                } else if (blackPromotableIdx == 1) {
+                                    game->getBoard()->setPiece(make_shared<Rook>(turn), move.second);
+                                } else if (blackPromotableIdx == 2) {
+                                    game->getBoard()->setPiece(make_shared<Bishop>(turn), move.second);
+                                } else if (blackPromotableIdx == 3) {
+                                    game->getBoard()->setPiece(make_shared<Knight>(turn), move.second);
+                                }
+
+                                blackPromotableIdx++;
+                            }
+
+                            if (blackPromotableIdx == 4) {
+                                blackPromotableIdx = 0;
+                            }
+                        } 
+    
                         // Undo the move if the bot put itself into check
                         game->updateGameState();
                         char gState = game->getGameState();
@@ -158,11 +211,12 @@ int main() {
                             } else if (gState == 's') {
                                 game->tie();
                             }
-                            if (turn == 'w') {
+                            /* if (turn == 'w') {
                                 turn = 'b';
                             } else {
                                 turn = 'w';
-                            }
+                            } */
+                            game->nextTurn();
                             break;
                         }
                     }
@@ -231,6 +285,7 @@ int main() {
 
                         if (gState == turn || gState == turn - 32) {
                             game->undo();
+                            
                             cout << "Cannot move to cause a self-check." << endl;
                         } else {
                             game->render();
@@ -241,11 +296,12 @@ int main() {
                             } else if (gState == 's') {
                                 game->tie();
                             }
-                            if (turn == 'w') {
+                            /* if (turn == 'w') {
                                 turn = 'b';
                             } else {
                                 turn = 'w';
-                            }
+                            } */
+                            game->nextTurn();
                         }
                     } else {
                         cout << "Invalid move" << endl;

@@ -19,6 +19,7 @@ class Game: public Subject {
     double bScore = 0;
     bool started = false;
     char gState = 0;
+    char turn = 'w';
     /**
      * 0: nothing
      * w: white in check
@@ -52,6 +53,8 @@ class Game: public Subject {
         // useful in this class or no?
         bool movePiece(std::pair<int, int> s, std::pair<int, int> end);
         void undo();
+        void nextTurn();
+        char getTurn();
         void printResults(); //is this needed?
 };
 

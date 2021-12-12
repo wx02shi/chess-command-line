@@ -52,6 +52,7 @@ bool Game::isStarted() {
 
 void Game::reset() {
     board = make_shared<Board>();
+    turn = 'w';
 }
 
 void Game::render() {
@@ -94,8 +95,8 @@ void Game::updateGameState() {
     bool isStale = isStalemate();
 
     if (isCheck != 0) { gState = isCheck; }
-    if (isStale) { gState = 's'; }
     if (isCheckmate != 0) { gState = isCheckmate; }
+    if (isStale) { gState = 's'; }
 }
 
 char Game::getGameState() {
@@ -111,17 +112,18 @@ char Game::isInCheck() {
             auto piece = board->getPiece(pos);
             piece->accept(checkVisitor, pos);
             gState = checkVisitor.getCheck(); 
+            if (gState == turn) {
+                gState = turn;
+                return gState;
+            }
             if (gState == 'b') {
                 // cout << "Black is in check." << endl;
                 gState = 'b';
-                break;
             } else if (gState == 'w') {
                 // cout << "White is in check." << endl;
                 gState = 'w';
-                break;
             }
         }
-        if (gState != 0) { break;}
     }
     return gState;
 }
@@ -226,4 +228,16 @@ void Game::printResults(){
     cout << "Final Score:" << endl;    
     cout << "White: " << wScore << endl;
     cout << "Black: " << bScore << endl;
+}
+
+void Game::nextTurn() {
+    if (turn == 'w') {
+        turn = 'b';
+    } else {
+        turn = 'w';
+    }
+}
+
+char Game::getTurn() {
+    return turn;
 }

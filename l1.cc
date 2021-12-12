@@ -35,6 +35,7 @@ pair<pair<int, int>, pair<int, int>> L1::computerMove(char color, Board &board, 
             }
         }
     }
+
     if (allValidMoves.size() == 0) {
         // cout << "allValidMoves is empty" << endl;
         return make_pair(startingPos, startingPos);
@@ -44,8 +45,10 @@ pair<pair<int, int>, pair<int, int>> L1::computerMove(char color, Board &board, 
         // cout << "l1 valid moves size: " << allValidMoves.size() << endl;
         int rngMove = rand() % ( allValidMoves.size() - 0 );
         auto potentialMove = allValidMoves[rngMove];
+        // auto thePiece = board.getPiece(potentialMove.first);
         board.movePieceTo(board.getPiece(potentialMove.first), potentialMove.first, potentialMove.second);
         game.updateGameState();
+
         char gState = game.getGameState();
         if (gState == color || gState == color - 32) {
             allValidMoves.erase(allValidMoves.begin() + rngMove);
@@ -56,6 +59,7 @@ pair<pair<int, int>, pair<int, int>> L1::computerMove(char color, Board &board, 
         }
         board.undo();
     }
+
     return allValidMoves[move];
 
     // finds range between 0 to 15, maybe instead, it's 1 to size of myPieces
