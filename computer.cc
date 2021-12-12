@@ -1,5 +1,6 @@
 #include "computer.h"
 #include "board.h"
+#include "game.h"
 
 #include "Difficulty.h"
 #include "l1.h"
@@ -7,6 +8,7 @@
 
 #include <utility>
 #include <memory>
+#include <iostream>
 
 using namespace std;
 
@@ -17,15 +19,16 @@ void Computer::set_difficulty(shared_ptr<Difficulty> difficulty) {
   difficultyOption = difficulty;
 }
 
-pair<pair<int, int>, pair<int, int>> Computer::autoMove(Board &board) {
+pair<pair<int, int>, pair<int, int>> Computer::autoMove(Board &board, Game &game) {
   pair<pair<int, int>, pair<int, int>> rngMove;
   int tempLevel = level;
   while (true) {
-    rngMove = difficultyOption->computerMove(color, board);
+    rngMove = difficultyOption->computerMove(color, board, game);
         
     // if rngMove is empty, setDifficulty() 1 level lower
     auto start = rngMove.first;
     auto end = rngMove.second;
+    // cout << "(" << start.first << ", " << start.second << "), " << "(" << end.first << ", " << end.second << ")" << endl;
     if (start.first == -1 && start.second == -1 && end.first == -1 && end.second == -1) {
       if (tempLevel == 3) {
         set_difficulty(make_shared<L2>());

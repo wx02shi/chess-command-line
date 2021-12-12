@@ -9,6 +9,7 @@
 #include "empty.h"
 
 #include <utility>
+#include <iostream>
 
 using namespace std;
 
@@ -20,8 +21,8 @@ char IsCheckVisitor::getCheck() {
 
 void IsCheckVisitor::visit(Queen &queen, pair<int, int> pos) {
     auto validMoves = queen.getValidMoves(pos, board);
-    for (auto pos : validMoves) {
-        auto potentialKing = board.getPiece(pos);
+    for (auto position : validMoves) {
+        auto potentialKing = board.getPiece(position);
         if ((potentialKing->getType() == 'k' || potentialKing->getType() == 'K') &&
             potentialKing->getColor() != queen.getColor()) {
             inCheck = potentialKing->getColor();
@@ -32,8 +33,8 @@ void IsCheckVisitor::visit(Queen &queen, pair<int, int> pos) {
 
 void IsCheckVisitor::visit(King &king, pair<int, int> pos) {
     auto validMoves = king.getValidMoves(pos, board);
-    for (auto pos : validMoves) {
-        auto potentialKing = board.getPiece(pos);
+    for (auto position : validMoves) {
+        auto potentialKing = board.getPiece(position);
         if ((potentialKing->getType() == 'k' || potentialKing->getType() == 'K') &&
             potentialKing->getColor() != king.getColor()) {
             inCheck = potentialKing->getColor();
@@ -45,8 +46,8 @@ void IsCheckVisitor::visit(King &king, pair<int, int> pos) {
 
 void IsCheckVisitor::visit(Bishop &bishop, pair<int, int> pos) {
     auto validMoves = bishop.getValidMoves(pos, board);
-    for (auto pos : validMoves) {
-        auto potentialKing = board.getPiece(pos);
+    for (auto position : validMoves) {
+        auto potentialKing = board.getPiece(position);
         if ((potentialKing->getType() == 'k' || potentialKing->getType() == 'K') &&
             potentialKing->getColor() != bishop.getColor()) {
             inCheck = potentialKing->getColor();
@@ -57,8 +58,8 @@ void IsCheckVisitor::visit(Bishop &bishop, pair<int, int> pos) {
 
 void IsCheckVisitor::visit(Rook &rook, pair<int, int> pos) {
     auto validMoves = rook.getValidMoves(pos, board);
-    for (auto pos : validMoves) {
-        auto potentialKing = board.getPiece(pos);
+    for (auto position : validMoves) {
+        auto potentialKing = board.getPiece(position);
         if ((potentialKing->getType() == 'k' || potentialKing->getType() == 'K') &&
             potentialKing->getColor() != rook.getColor()) {
             inCheck = potentialKing->getColor();
@@ -69,8 +70,8 @@ void IsCheckVisitor::visit(Rook &rook, pair<int, int> pos) {
 
 void IsCheckVisitor::visit(Knight &knight, pair<int, int> pos) {
     auto validMoves = knight.getValidMoves(pos, board);
-    for (auto pos : validMoves) {
-        auto potentialKing = board.getPiece(pos);
+    for (auto position : validMoves) {
+        auto potentialKing = board.getPiece(position);
         if ((potentialKing->getType() == 'k' || potentialKing->getType() == 'K') &&
             potentialKing->getColor() != knight.getColor()) {
             inCheck = potentialKing->getColor();
@@ -81,8 +82,8 @@ void IsCheckVisitor::visit(Knight &knight, pair<int, int> pos) {
 
 void IsCheckVisitor::visit(Pawn &pawn, pair<int, int> pos) {
     auto validMoves = pawn.getValidMoves(pos, board);
-    for (auto pos : validMoves) {
-        auto potentialKing = board.getPiece(pos);
+    for (auto position : validMoves) {
+        auto potentialKing = board.getPiece(position);
         if ((potentialKing->getType() == 'k' || potentialKing->getType() == 'K') &&
             potentialKing->getColor() != pawn.getColor()) {
             inCheck = potentialKing->getColor();

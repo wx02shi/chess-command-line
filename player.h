@@ -6,6 +6,9 @@
 #include <utility>
 
 #include "board.h"
+#include "game.h"
+
+class Game;
 
 class Player {
     char type;
@@ -18,7 +21,7 @@ class Player {
         Player(char color, char type);
         char getColor();
         char getType();
-        virtual std::pair<std::pair<int, int>, std::pair<int, int>> autoMove(Board &board) = 0;
+        virtual std::pair<std::pair<int, int>, std::pair<int, int>> autoMove(Board &board, Game &game) = 0;
         //void movePiece(std::vector<std::pair<int, int>> start, std::vector<std::pair<int, int>> end);
         ~Player();
 };

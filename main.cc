@@ -104,15 +104,18 @@ int main() {
             if (turn == 'w' && game->getWhite()->getType() == 'c') {
                 pair<pair<int, int>, pair<int, int>> move;
                 while (true) {
-                    move = game->getWhite()->autoMove(*game->getBoard().get());
+                    // cout << "is this looping?" << endl;
+                    move = game->getWhite()->autoMove(*game->getBoard().get(), *game.get());
                     if (move.first != move.second) {
                         game->movePiece(move.first, move.second);
                         // Undo the move if the bot put itself into check
                         game->updateGameState();
                         char gState = game->getGameState();
+                        // cout << "gState: " << gState << endl;
                         
                         if (gState == turn || gState == turn - 32) {
                             game->undo();
+                            cout << "Cannot move to cause a self-check." << endl;
                         } else {
                             game->render();
                             if (gState == 'W') {
@@ -136,7 +139,7 @@ int main() {
             } else if (turn == 'b' && game->getBlack()->getType() == 'c') {
                 pair<pair<int, int>, pair<int, int>> move;
                 while (true) {
-                    move = game->getBlack()->autoMove(*game->getBoard().get());
+                    move = game->getBlack()->autoMove(*game->getBoard().get(), *game.get());
                     if (move.first != move.second) {
                         game->movePiece(move.first, move.second);
                         // Undo the move if the bot put itself into check
@@ -145,6 +148,7 @@ int main() {
                         
                         if (gState == turn || gState == turn - 32) {
                             game->undo();
+                            cout << "Cannot move to cause a self-check." << endl;
                         } else {
                             game->render();
                             if (gState == 'W') {

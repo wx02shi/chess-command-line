@@ -37,7 +37,7 @@ vector<pair<int, int>> Queen::getValidMoves(pair<int, int> position, Board &boar
         auto upLeftPos = make_pair(position.first - index, position.second + index);
         auto upRightPos = make_pair(position.first + index, position.second + index);
         auto downLeftPos = make_pair(position.first - index, position.second - index);
-        auto downRightPos = make_pair(position.first + index, position.second + index);
+        auto downRightPos = make_pair(position.first + index, position.second - index);
 
         if (!upLimit && (upPos.first < 0 || upPos.first > 7 || upPos.second < 0 || upPos.second > 7)) {upLimit = true;} 
         if (!downLimit && (downPos.first < 0 || downPos.first > 7 || downPos.second < 0 || downPos.second > 7)) {downLimit = true;}

@@ -32,7 +32,7 @@ vector<pair<int, int>> King::getValidMoves(pair<int, int> position, Board &board
     auto upLeftPos = make_pair(position.first - 1, position.second + 1);
     auto upRightPos = make_pair(position.first + 1, position.second + 1);
     auto downLeftPos = make_pair(position.first - 1, position.second - 1);
-    auto downRightPos = make_pair(position.first + 1, position.second + 1);
+    auto downRightPos = make_pair(position.first + 1, position.second - 1);
     if (!upLimit && (upPos.first < 0 || upPos.first > 7 || upPos.second < 0 || upPos.second > 7)) {upLimit = true;} 
     if (!downLimit && (downPos.first < 0 || downPos.first > 7 || downPos.second < 0 || downPos.second > 7)) {downLimit = true;}
     if (!leftLimit && (leftPos.first < 0 || leftPos.first > 7 || leftPos.second < 0 || leftPos.second > 7)) {leftLimit = true;}

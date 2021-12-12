@@ -8,7 +8,7 @@
 class L2 : public Difficulty {
 
   public:
-    std::pair<std::pair<int, int>, std::pair<int, int>> computerMove(char color, Board &board) override;
+    std::pair<std::pair<int, int>, std::pair<int, int>> computerMove(char color, Board &board, Game &game) override;
     ~L2();
 };
 

@@ -27,7 +27,7 @@ vector<pair<int, int>> Bishop::getValidMoves(pair<int, int> position, Board &boa
         auto upLeftPos = make_pair(position.first - index, position.second + index);
         auto upRightPos = make_pair(position.first + index, position.second + index);
         auto downLeftPos = make_pair(position.first - index, position.second - index);
-        auto downRightPos = make_pair(position.first + index, position.second + index);
+        auto downRightPos = make_pair(position.first + index, position.second - index);
 
         if (!upLeftLimit && (upLeftPos.first < 0 || upLeftPos.first > 7 || upLeftPos.second < 0 || upLeftPos.second > 7)) {upLeftLimit = true;}
         if (!upRightLimit && (upRightPos.first < 0 || upRightPos.first > 7 || upRightPos.second < 0 || upRightPos.second > 7)) {upRightLimit = true;}
