@@ -68,8 +68,10 @@ bool Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
     auto validMovesVec = piece->getValidMoves(from, *this);
     for (auto pointPair : validMovesVec) {
         if (pointPair.first == to.first && pointPair.second == to.second) {
-            isValid = true;
-            break;
+            if (getPiece(pointPair)->getColor() != piece->getColor()) {
+                isValid = true;
+                break;
+            }
         }
     }
 
