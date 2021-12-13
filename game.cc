@@ -168,7 +168,7 @@ char Game::isInCheckmate() {
                 if ((piece->getType() == 'k' || piece->getType() == 'K') &&
                     piece->getColor() == gState) {
                     checkedKing = position;
-                } else if (piece->getType() != 0) {
+                } else if (piece->getType() != 0 && piece->getColor() != gState) {
                     auto validMoves = piece->getValidMoves(position, *board.get());
                     opponentThreat.insert(opponentThreat.end(), validMoves.begin(), validMoves.end());
                 }
@@ -204,10 +204,10 @@ char Game::isInCheckmate() {
 
             if (piece->getColor() != board->getPiece(checkedKing)->getColor()) {
                 bool thisFound = false;
+                cout <<  "King move: " << km.first << ", " << km.second << endl;
                 for (auto threat : opponentThreat) {
                     if (km == threat) {
                         thisFound = true;
-                        cout << km.first << ", " << km.second << endl;
                         cout << threat.first << ", " << threat.second << endl;
                         break;
                     }
