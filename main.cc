@@ -334,9 +334,12 @@ int main() {
                                 if (j == 0 || j == 7) { // check for pawns on first and last row
                                     if (piece->getType() == 'p' ||
                                         piece->getType() == 'P') {
-                                        cout << "Invalid setup, pawns can't be placed on first and last rows" << endl;
+					if (valid) {
+					    // only print this once
+                                            cout << "Invalid setup, pawns can't be placed on first and last rows" << endl;
+					}
                                         valid = false;
-                                        break;
+                                        // break;
                                     }
                                 }
 
@@ -349,11 +352,11 @@ int main() {
                                     }
                                 }
 
-                                if (!valid) {break;}
+                                // if (!valid) {break;}
                             }
                         }
 
-                        if ((wKingCount != 1 || bKingCount != 1) && valid) {
+                        if (wKingCount != 1 || bKingCount != 1) {
                             cout << "Invalid setup, missing/too many kings" << endl;
                             valid = false;
                         }
