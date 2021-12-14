@@ -339,6 +339,7 @@ int main() {
                                         break;
                                     }
                                 }
+
                                 if (piece->getType() == 'k' ||
                                     piece->getType() == 'K' ) {
                                     if (piece->getColor() == 'w') {
@@ -346,16 +347,13 @@ int main() {
                                     } else {
                                         bKingCount++;
                                     }
-                                    /* if (wKingCount > 1 || bKingCount > 1) {
-                                        valid = false;
-                                        break;
-                                    } */
                                 }
+
                                 if (!valid) {break;}
                             }
                         }
 
-                        if (wKingCount != 1 || bKingCount != 1) {
+                        if ((wKingCount != 1 || bKingCount != 1) && valid) {
                             cout << "Invalid setup, missing/too many kings" << endl;
                             valid = false;
                         }
