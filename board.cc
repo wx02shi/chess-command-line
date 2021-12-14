@@ -95,6 +95,14 @@ bool Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
     }
     */
     
+    if ((piece->getType() == 'k' || piece->getType() == 'K') && piece->hasMoved()) {
+        int dist = to.first - from.first;
+	// trying to castle even though the piece has moved
+	if (dist == 2 || dist == -2) {
+	    return false;
+	}
+    }
+
     // Check for castling
     if ((piece->getType() == 'k' || piece->getType() == 'K') && !piece->hasMoved()) {
         // auto potentialCastle = to;
@@ -110,16 +118,19 @@ bool Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
         
         auto pRook = getPiece(potentialRook);
         if (piece->getColor() == pRook->getColor()) {
-            if (pRook->getType() == 'r' || pRook->getType() == 'R') {
+            if ((pRook->getType() == 'r' || pRook->getType() == 'R') && !piece->hasMoved()) {
                 setPiece(pRook, potentialRookMove);
                 setPiece(make_shared<Empty>(), potentialRook);
                 pRook->move();
             } else {
                 // Do nothing if the move "eats" a piece of the same colour, that is not a castle.
-                return false;
+                // return false;
+
+		// Actually, the rook should still move, since it's a valid move, we just won't do a castle
             }
         }
-    }
+    } 
+
     
     // Deny a pawn moving diagonally if it's not capturing an opponent piece
     if ((piece->getType() == 'p' || piece->getType() == 'P')) {
