@@ -13,3 +13,4 @@ class Empty: public Piece {
 };
 
 #endif
+

@@ -10,3 +10,4 @@
 PieceVisitor::PieceVisitor(Board &board) : board{board} {}
 
 PieceVisitor::~PieceVisitor() {}
+

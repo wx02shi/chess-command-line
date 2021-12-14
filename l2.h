@@ -13,3 +13,4 @@ class L2 : public Difficulty {
 };
 
 #endif
+

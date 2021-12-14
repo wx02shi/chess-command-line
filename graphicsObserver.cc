@@ -11,8 +11,9 @@ GraphicsObserver::GraphicsObserver(shared_ptr<Game> g) : subject{g} {
     window = make_shared<Xwindow>();
     subject->attach(make_shared<GraphicsObserver>((*this)));
 
+    // Disply the board and axes once to save computation
     for (int i = 8; i >= 1; i--) {
-        string msg = to_string(9-i);
+        string msg = to_string(9 - i);
         window->drawString(5, (i + 1) * TILESIZE - 4, msg);
     }
     for (int j = 0; j <= 7; j++) {
@@ -46,6 +47,7 @@ void GraphicsObserver::notify() {
         }
     }
     
+    // print pieces
     for (int i = 0; i <= 7; i++) {
         for (int j = 0; j <= 7; j++) {
             char thePiece = subject->getState(i,j);
@@ -53,38 +55,8 @@ void GraphicsObserver::notify() {
             if (thePiece != 0) { 
                 msg.push_back(thePiece); 
                 window->drawString((j + 1) * TILESIZE + 5, ((7 - i) +2) * TILESIZE - 4, msg);
-            } /* else {
-                if (i % 2 == 0) {
-                    if (j % 2 == 0) {
-                        window->fillRectangle((1+j) * TILESIZE, (8 - i) * TILESIZE, TILESIZE, TILESIZE, Xwindow::White);
-                    } else {
-                        window->fillRectangle((1+j) * TILESIZE, (8 - i) * TILESIZE, TILESIZE, TILESIZE, Xwindow::Green);
-                    }
-                } else {
-                    if (j % 2 == 0) {
-                        window->fillRectangle((1+j) * TILESIZE, (8 - i) * TILESIZE, TILESIZE, TILESIZE, Xwindow::Green);
-                    } else {
-                        window->fillRectangle((1+j) * TILESIZE, (8 - i) * TILESIZE, TILESIZE, TILESIZE, Xwindow::White);
-                    }
-                }
-            } */ 
-            
+            }
         }
     }
 }
 
-    // print pieces
-
-/*  
-    for (int i = 0; i <= 7; ++i){
-        for (int j = 0; j <= 7; ++j){
-            char boardPiece = subject->getState(i,j);
-            if (boardPiece->getType() == 'Q' && boardPiece->getColor() == 'w'){
-                window->drawString(//how to get correct position?)
-            } else if (boardPiece->getType() == 'Q' && boardPiece->getColor() == 'b'){
-                window->drawString(//how to get correct position?)
-        }
-    }
-    
-}
-*/
