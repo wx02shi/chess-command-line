@@ -1,7 +1,11 @@
 game human human
 setup
-+ R a8
++ K e1
++ R a1
+= black
 + K e8
++ R h8
 done
-move e8 a8
-move a8 e8
+move e1 c1
+move e8 g8
+resign

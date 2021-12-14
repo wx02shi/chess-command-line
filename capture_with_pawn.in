@@ -2,10 +2,13 @@ game human human
 setup
 + K e1
 + P e2
-+ B c1
 = black
 + K e8
++ R f5
++ B f6
 done
-move e2 e3
+move e2 e4
 move e8 f8
-move c1 e3
+move e4 f5
+move f8 e8
+move f5 f6
