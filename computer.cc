@@ -22,13 +22,13 @@ void Computer::set_difficulty(shared_ptr<Difficulty> difficulty) {
 pair<pair<int, int>, pair<int, int>> Computer::autoMove(Board &board, Game &game) {
   pair<pair<int, int>, pair<int, int>> rngMove;
   int tempLevel = level;
+
   while (true) {
     rngMove = difficultyOption->computerMove(color, board, game);
         
     // if rngMove is empty, setDifficulty() 1 level lower
     auto start = rngMove.first;
     auto end = rngMove.second;
-    // cout << "(" << start.first << ", " << start.second << "), " << "(" << end.first << ", " << end.second << ")" << endl;
     if (start.first == -1 && start.second == -1 && end.first == -1 && end.second == -1) {
       if (tempLevel == 3) {
         set_difficulty(make_shared<L2>());
@@ -44,12 +44,13 @@ pair<pair<int, int>, pair<int, int>> Computer::autoMove(Board &board, Game &game
     }
   }
   
+  // reset the bot's level back to original state
   if (level == 2) {
     set_difficulty(make_shared<L2>());
-  } else if (level == 3) {
-    // set_difficulty(make_shared<L3>());
   }
+
   return rngMove;
 }
 
 Computer::~Computer() {}
+

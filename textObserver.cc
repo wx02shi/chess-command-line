@@ -6,21 +6,10 @@
 using namespace std;
 
 TextObserver::TextObserver(shared_ptr<Game> g) : subject{g} {
-    // THIS MIGHT NOT WORK (and detach)
-    // cout << "TEXTOBS g COUNT " << g.use_count() << endl;
-    // g is definitely gone
     subject->attach(make_shared<TextObserver>((*this)));
 }
 
-TextObserver::~TextObserver() {
-    // TODO: maked_shared might not actually detach <- address later
-    //cout << "This is from the DETACH in TEXTOBSERVER" << endl;
-    //subject->detach(make_shared<TextObserver>((*this)));
-    // subject = nullptr; // note: somehow decreased the subject count by 3 ???
-    // cout << "TEXTOBS OBSERVERS VEC SIZE : " << observers.size() << endl;
-    //cout << "TEXTOBS DESTRUCTOR SUBJECT COUNT " << subject.use_count() << endl;
-    
-}
+TextObserver::~TextObserver() {}
 
 void TextObserver::notify() {
     /*
@@ -36,7 +25,6 @@ void TextObserver::notify() {
         out << i << " ";
 
         // Print row tiles
-        // TODO: need to put subject->getState(...) 
         if (i % 2 == 0) {
             // Print white tile first, then alternate
             for (int j = 0; j <= 7; j++) {
@@ -76,7 +64,6 @@ void TextObserver::notify() {
     out << "" << endl;
 
     // Print gameState
-
     char gState = subject->getGameState();
     if (gState == 'w') {
         cout << "White is in check." << endl;
@@ -89,5 +76,5 @@ void TextObserver::notify() {
     } else if (gState == 's') {
         cout << "Stalemate!" << endl;
     }
-    //cout << "NOTIFY, SUBJECT SHARED_PTR COUNT " << subject.use_count() << endl;
 }
+

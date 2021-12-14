@@ -1,5 +1,6 @@
 #ifndef __PIECEVISITOR_H__
 #define __PIECEVISITOR_H__
+
 #include <utility>
 
 // Forward declarations
@@ -12,11 +13,9 @@ class Rook;
 class Empty;
 class Board;
 
-// might need forward declaration for Board, maybe
-
 class PieceVisitor {
   protected:
-  Board &board;
+    Board &board;
 
   public:
     PieceVisitor(Board &board);
@@ -32,3 +31,4 @@ class PieceVisitor {
 };
 
 #endif
+

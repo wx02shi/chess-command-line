@@ -8,22 +8,22 @@
 #include "board.h"
 #include "game.h"
 
+// Forward Declaration
 class Game;
 
 class Player {
     char type;
+
     protected:
-    char color;
-    
-    //std::vector<Piece*> remaining();
+    	char color;
     
     public:
         Player(char color, char type);
         char getColor();
         char getType();
         virtual std::pair<std::pair<int, int>, std::pair<int, int>> autoMove(Board &board, Game &game) = 0;
-        //void movePiece(std::vector<std::pair<int, int>> start, std::vector<std::pair<int, int>> end);
         ~Player();
 };
 
 #endif
+

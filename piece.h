@@ -8,14 +8,16 @@
 #include "board.h"
 #include "PieceVisitor.h"
 
+// Forward Declarations
 class Board;
 class PieceVisitor;
 
 class Piece {
     char color;
     int moved = 0;
+
     protected:
-    char type; //type of piece
+    	char type; //type of piece
 
     public:
         Piece(char color);
@@ -31,4 +33,6 @@ class Piece {
         virtual void accept(PieceVisitor &pv, std::pair<int, int> pos) = 0;
         ~Piece();
 };
+
 #endif
+

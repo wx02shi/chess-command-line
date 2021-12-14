@@ -1,4 +1,5 @@
 #include "empty.h"
+
 #include <memory>
 #include <utility>
 #include <vector>
@@ -21,3 +22,4 @@ void Empty::accept(PieceVisitor &pv, std::pair<int, int> pos) {
 }
 
 Empty::~Empty() {}
+

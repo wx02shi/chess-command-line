@@ -10,6 +10,7 @@ char Piece::getType() {
     if (color == 'w') {
         return type - 32;
     }
+    
     return type;
 }
 
@@ -32,3 +33,4 @@ void Piece::undoMove() {
 }
 
 Piece::~Piece() {}
+
