@@ -334,11 +334,15 @@ int main() {
                                 if (j == 0 || j == 7) { // check for pawns on first and last row
                                     if (piece->getType() == 'p' ||
                                         piece->getType() == 'P') {
-                                        cout << "Invalid setup, pawns can't be placed on first and last rows" << endl;
+					if (valid) {
+					    // only print this once
+                                            cout << "Invalid setup, pawns can't be placed on first and last rows" << endl;
+					}
                                         valid = false;
-                                        break;
+                                        // break;
                                     }
                                 }
+
                                 if (piece->getType() == 'k' ||
                                     piece->getType() == 'K' ) {
                                     if (piece->getColor() == 'w') {
@@ -346,12 +350,9 @@ int main() {
                                     } else {
                                         bKingCount++;
                                     }
-                                    /* if (wKingCount > 1 || bKingCount > 1) {
-                                        valid = false;
-                                        break;
-                                    } */
                                 }
-                                if (!valid) {break;}
+
+                                // if (!valid) {break;}
                             }
                         }
 
