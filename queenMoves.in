@@ -1,0 +1,21 @@
+game human human
+setup
++ K e1 
+= black
++ K e8
++ Q d8
+done
+move e1 f1
+move d8 d5
+move f1 e1
+move d5 a2
+move e1 f1
+move a2 d5
+move f1 g1
+move d5 e4
+move g1 f1
+move e4 c6
+move f1 e1
+move c6 c8
+move e1 f1
+move c8 h8
