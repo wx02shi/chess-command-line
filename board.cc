@@ -124,9 +124,7 @@ bool Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
                 pRook->move();
             } else {
                 // Do nothing if the move "eats" a piece of the same colour, that is not a castle.
-                // return false;
-
-		// Actually, the rook should still move, since it's a valid move, we just won't do a castle
+                return false;
             }
         }
     } 
