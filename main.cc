@@ -104,6 +104,7 @@ int main() {
         else if (command == "resign") {
             if (game->getTurn() == 'w') { game->blackWins(); }
             else { game->whiteWins(); }
+	    game->empty();
         }
         else if (command == "move") {
             char turn = game->getTurn();
