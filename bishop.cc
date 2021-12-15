@@ -75,4 +75,3 @@ void Bishop::accept(PieceVisitor &pv, std::pair<int, int> pos) {
 }
 
 Bishop::~Bishop() {}
-

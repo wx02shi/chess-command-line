@@ -20,19 +20,13 @@ pair<int, int> Game::translatePos(string pos) {
     return make_pair(col, row);
 }
 
-double Game::getFinalScore() {
-    return -1;
-}
-
 void Game::whiteWins() {
     wScore++;
-    // cout << "White Wins!" << endl;
     reset();
 }
 
 void Game::blackWins() {
     bScore++;
-    // cout << "Black Wins!" << endl;
     reset();
 }
 
@@ -72,7 +66,6 @@ shared_ptr<Player> Game::getBlack() {
 }
 
 void Game::setWhite(shared_ptr<Player> p) {
-    // white = temp;
     white = p;
     
 }
@@ -117,10 +110,8 @@ char Game::isInCheck() {
                 return gState;
             }
             if (gState == 'b') {
-                // cout << "Black is in check." << endl;
                 gState = 'b';
             } else if (gState == 'w') {
-                // cout << "White is in check." << endl;
                 gState = 'w';
             }
         }
@@ -136,26 +127,22 @@ bool Game::isStalemate() {
         for (int j = 0; j <= 7; j++) {
             auto pos = make_pair(i,j);
             auto piece = board->getPiece(pos);
-            piece->accept(stalemateVisitor, pos);
-            bool stalemateResult = stalemateVisitor.getStalemate();
-            // there is no "stalemate" for that piece
-            // then for the player, there exists some legal move
-            if (!stalemateResult) { 
-                isStalemate = false;
-                break;
+            if (piece->getColor() == turn) {
+                piece->accept(stalemateVisitor, pos);
+                bool stalemateResult = stalemateVisitor.getStalemate();
+                // there is no "stalemate" for that piece
+                // then for the player, there exists some legal move
+                if (!stalemateResult) { 
+                    isStalemate = false;
+                    break;
+                }
             }
         }
         if (!isStalemate) { break; }
     }
 
-    /* if (isStalemate) {
-        cout << "Stalemate!" << endl; 
-        tie();
-    } */
-
     return isStalemate;
 }
-
 
 char Game::isInCheckmate() {
     if (gState == 'w' || gState == 'b') {
@@ -176,27 +163,6 @@ char Game::isInCheckmate() {
         }
 
         auto kingMoves = board->getPiece(checkedKing)->getValidMoves(checkedKing, *board.get());
-        /* for (auto km : kingMoves) {
-            // cout << "KING MOVE TILE: " << km.first << ' ' << km.second << endl;
-            bool threatened = true;
-
-            auto piece = board->getPiece(km);
-            if (piece->getColor() != board->getPiece(checkedKing)->getColor()) {
-                for (auto threat : opponentThreat) {
-                    // cout << "THREATENED TILE: " << threat.first << ' ' << threat.second << endl;
-                    if (km.first != threat.first || km.second != threat.second) {
-                        cout << km.first << ", " << km.second << endl;
-                        cout << threat.first << ", " << threat.second << endl;
-                        threatened = false;
-                        break;
-                    }
-                }
-            }
-            
-            if (!threatened) {
-                return 0;
-            }
-        } */
 
         bool allFound = true;
         for (auto km : kingMoves) {
@@ -204,11 +170,9 @@ char Game::isInCheckmate() {
 
             if (piece->getColor() != board->getPiece(checkedKing)->getColor()) {
                 bool thisFound = false;
-                cout <<  "King move: " << km.first << ", " << km.second << endl;
                 for (auto threat : opponentThreat) {
                     if (km == threat) {
                         thisFound = true;
-                        cout << threat.first << ", " << threat.second << endl;
                         break;
                     }
                     
@@ -221,18 +185,12 @@ char Game::isInCheckmate() {
                 }
             }
         }
-        /* cout << "Checkmate! ";
-        if (inCheck == 'w') {
-            blackWins();
-        } else if (inCheck == 'b') {
-            whiteWins();
-        } */
+
         if (allFound) {
             return (gState - 32);
         } else {
             return 0;
         }
-        
     }
     return 0;
 }
@@ -243,11 +201,6 @@ void Game::undo() {
 
 char Game::getState(int row, int col) const {
     auto thePiece = board->getPiece(make_pair(col, row));
-    /* if (thePiece != nullptr) {
-        char c = thePiece->getType();
-        return c;
-    }
-    return 0; */
     return thePiece->getType();
 }
 
@@ -258,7 +211,6 @@ bool Game::movePiece(pair<int, int> s, pair<int, int> end) {
     return result;
 }
 
-//output Score:
 void Game::printResults(){
     cout << "Final Score:" << endl;    
     cout << "White: " << wScore << endl;

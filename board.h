@@ -16,20 +16,13 @@ class Board {
     std::pair<int, int> lastMoveStart;
     std::pair<int, int> lastMoveEnd;
 
-
     public:
         Board();
         std::shared_ptr<Piece> getPiece(std::pair<int, int> position);
-        // std::vector<std::vector<std::shared_ptr<Piece>>> getPieces();
-        // void movePieceTo(Piece *piece, std::pair<int, int> position);
         bool movePieceTo(std::shared_ptr<Piece> piece, std::pair<int, int> from, std::pair<int, int> to);
         void setPiece(std::shared_ptr<Piece> piece, std::pair<int, int> position);
-        bool isValidMove(Piece &piece, std::pair<int, int> position);
         void undo();
         void clear();
-        // getState(); ???
-        // BoardIterator begin();
-        // BoardIterator end();
         ~Board();
 };
 

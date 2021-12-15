@@ -1,9 +1,0 @@
-game human human
-setup
-+ P a7
-
-= black
-+ P e2
-done
-move a7 a8
-move e2 e1

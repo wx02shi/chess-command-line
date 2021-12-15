@@ -1,13 +1,15 @@
 game human human
 setup
-+ K a2
 = black
-+ Q b3
++ K a1
 = white
-+ B e4
++ Q b4
 = black
++ P f4
+= white
 + R b7
 + K a8
 done
-move a2 a1
-move b3 b2
+move b4 b3
+move f4 f3
+move b7 a7

@@ -18,20 +18,20 @@ class Game: public Subject {
     double wScore = 0;
     double bScore = 0;
     bool started = false;
-    char gState = 0;
     char turn = 'w';
+    char gState = 0;
     /**
      * 0: nothing
      * w: white in check
      * b: black in check
+     * W: white is checkmated
+     * B: black is checkmated
+     * s: stalemate
      */
 
     public:
-        
         Game();
         static std::pair<int, int> translatePos(std::string pos);
-        // should return pair<int, int>
-        double getFinalScore();
         void whiteWins();
         void blackWins();
         void tie();
@@ -50,12 +50,11 @@ class Game: public Subject {
         void updateGameState();
         char getGameState();
         char getState(int row, int col) const override;
-        // useful in this class or no?
         bool movePiece(std::pair<int, int> s, std::pair<int, int> end);
         void undo();
         void nextTurn();
         char getTurn();
-        void printResults(); //is this needed?
+        void printResults();
 };
 
 #endif

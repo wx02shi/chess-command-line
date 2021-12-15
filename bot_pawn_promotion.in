@@ -1,4 +1,4 @@
-game computer1 computer2 
+game computer2 computer2 
 setup 
 + P c7
 + K a1 
@@ -7,6 +7,4 @@ setup
 + K h8 
 done 
 move 
-move 
-move
 move

@@ -1,0 +1,218 @@
+8 rnbqkbnr
+7 pppppppp
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPPPPPP
+1 RNBQKBNR
+
+  abcdefgh
+8 rnbqkbnr
+7 pppppppp
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ P _
+3 _ _ _ _ 
+2 PPPPP_PP
+1 RNBQKBNR
+
+  abcdefgh
+8 rnbqkbnr
+7 ppp pppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  _ _ P _
+3 _ _ _ _ 
+2 PPPPP_PP
+1 RNBQKBNR
+
+  abcdefgh
+8 rnbqkbnr
+7 ppp pppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  _ _ P _
+3 _ _P_ _ 
+2 PPP_P_PP
+1 RNBQKBNR
+
+  abcdefgh
+8 rnb_kbnr
+7 ppp pppp
+6  _ q _ _
+5 _ _p_ _ 
+4  _ _ P _
+3 _ _P_ _ 
+2 PPP_P_PP
+1 RNBQKBNR
+
+  abcdefgh
+8 rnb_kbnr
+7 ppp pppp
+6  _ q _ _
+5 _ _p_ _ 
+4  _ _ P P
+3 _ _P_ _ 
+2 PPP_P_P_
+1 RNBQKBNR
+
+  abcdefgh
+8 rnb_kbnr
+7 ppp pppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  q _ P P
+3 _ _P_ _ 
+2 PPP_P_P_
+1 RNBQKBNR
+
+  abcdefgh
+White is in check.
+8 rnb_kbnr
+7 ppp pppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  q _ P P
+3 _ NP_ _ 
+2 PPP_P_P_
+1 R BQKBNR
+
+  abcdefgh
+8 rnb_kbnr
+7 ppp pppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  _ _ P P
+3 _ qP_ _ 
+2 PPP_P_P_
+1 R BQKBNR
+
+  abcdefgh
+White is in check.
+8 rnb_kbnr
+7 ppp pppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  _ _ P P
+3 _ qP_ _ 
+2 PPPBP_P_
+1 R _QKBNR
+
+  abcdefgh
+8 rnb_kbnr
+7 ppp pppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  _ _ P P
+3 _ _P_ _ 
+2 PPPqP_P_
+1 R _QKBNR
+
+  abcdefgh
+White is in check.
+8 rnb_kbnr
+7 ppp pppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  _ _ P P
+3 _ _P_ _ 
+2 PPPqPKP_
+1 R _Q_BNR
+
+  abcdefgh
+8 rnb_kbnr
+7 ppp pppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  _ _ q P
+3 _ _P_ _ 
+2 PPP_PKP_
+1 R _Q_BNR
+
+  abcdefgh
+White is in check.
+8 rnb_kbnr
+7 ppp pppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  _ _ q P
+3 _ _P_N_ 
+2 PPP_PKP_
+1 R _Q_B_R
+
+  abcdefgh
+8 rnb_kbnr
+7 ppp pppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  _ _ _ q
+3 _ _P_N_ 
+2 PPP_PKP_
+1 R _Q_B_R
+
+  abcdefgh
+White is in check.
+8 rnb_kbnr
+7 ppp pppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  _ _ _ R
+3 _ _P_N_ 
+2 PPP_PKP_
+1 R _Q_B_ 
+
+  abcdefgh
+8 rnb_ bnr
+7 pppkpppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  _ _ _ R
+3 _ _P_N_ 
+2 PPP_PKP_
+1 R _Q_B_ 
+
+  abcdefgh
+8 rnb_ bnr
+7 pppkpppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  _ _ _ R
+3 _ _P_N_ 
+2 PPP_P_P_
+1 R _QKB_ 
+
+  abcdefgh
+8 rnbk bnr
+7 ppp pppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  _ _ _ R
+3 _ _P_N_ 
+2 PPP_P_P_
+1 R _QKB_ 
+
+  abcdefgh
+8 rnbk bnr
+7 ppp pppp
+6  _ _ _ _
+5 _ _p_ _ 
+4  _ P _ R
+3 _ _ _N_ 
+2 PPP_P_P_
+1 R _QKB_ 
+
+  abcdefgh
+8 rnbk bnr
+7 ppp p pp
+6  _ _ _ _
+5 _ _p_p_ 
+4  _ P _ R
+3 _ _ _N_ 
+2 PPP_P_P_
+1 R _QKB_ 
+
+  abcdefgh
+Final Score:
+White: 0
+Black: 0

@@ -39,7 +39,6 @@ pair<pair<int, int>, pair<int, int>> L2::computerMove(char color, Board &board, 
     }
   }
 
-  
   pair<pair<int, int>, pair<int, int>> BEST_MOVE = make_pair(make_pair(-1, -1), make_pair(-1, -1));
 
   while (true) {
@@ -47,11 +46,9 @@ pair<pair<int, int>, pair<int, int>> L2::computerMove(char color, Board &board, 
     BEST_MOVE_INDEX = -1;
     int HIGHEST_VALUE_TO_CAPTURE = 0;
     
-    // cout << "allPieceMoves size: " << allPiecesMoves.size() << endl;
     // compute the best piece to capture
     if (allPiecesMoves.size() > 0) {
       for (int i = 0; i < allPiecesMoves.size(); i++) {
-        // cout << "HIGHEST VALUE: " << HIGHEST_VALUE_TO_CAPTURE << endl;
         auto pieceMove = allPiecesMoves[i];
         auto thePiece = board.getPiece(pieceMove.second);
         if (thePiece->getColor() != color) {
@@ -123,9 +120,6 @@ pair<pair<int, int>, pair<int, int>> L2::computerMove(char color, Board &board, 
     }
     
   }
-  /* if (BEST_MOVE_INDEX == -1) {
-    return make_pair(make_pair(-1, -1), make_pair(-1, -1));
-  } */
   
   return allPiecesMoves[BEST_MOVE_INDEX];
 }

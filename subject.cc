@@ -25,4 +25,3 @@ void Subject::detach(shared_ptr<Observer> o) {
 void Subject::notifyObservers(){
     for (auto ob : observers) ob->notify();
 }
-

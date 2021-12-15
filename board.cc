@@ -15,7 +15,6 @@
 
 using namespace std;
 
-
 Board::Board() {
     auto empty = make_shared<Empty>();
     for (int i = 0; i <= 7; i++) {
@@ -33,7 +32,7 @@ Board::Board() {
     pieces[6][0] = make_shared<Knight>('w');
     pieces[7][0] = make_shared<Rook>('w');
 
-    for (int i=0; i<8; i++) {
+    for (int i = 0; i < 8; i++) {
         pieces[i][1] = make_shared<Pawn>('w');
         pieces[i][6] = make_shared<Pawn>('b');
     }
@@ -55,13 +54,6 @@ shared_ptr<Piece> Board::getPiece(std::pair<int, int> position){
     return pieces[position.first][position.second];
 }
 
-/*
-vector<vector<shared_ptr<Piece>>> Board::getPieces() {
-    return pieces;
-}
-*/
-
-// void Board::movePieceTo(Piece *piece, pair<int, int> position){
 bool Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, int> to){
     // get valid moves of the piece
     bool isValid = false;
@@ -74,33 +66,20 @@ bool Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
             }
         }
     }
-
+    
     if (!isValid) { return false; }
 
     lastEatenPiece = getPiece(to);
     lastMovedPiece = piece;
     lastMoveStart = from;
     lastMoveEnd = to;
-    // uses setPiece twice: once to place the piece in the end spot,
-    // a second time to set the starting point to null.
-
-    /*
-    auto targetPiece = getPiece(to);
-    if (targetPiece->getColor() == '0') {
-        setPiece(piece, to);
-    } else if (piece->getColor() != targetPiece->getColor()) {
-        // setPiece(make_shared<Empty>(), to);
-        setPiece(piece, to);
-        // TODO: what to do with the captured piece?
-    }
-    */
     
     if ((piece->getType() == 'k' || piece->getType() == 'K') && piece->hasMoved()) {
         int dist = to.first - from.first;
-	// trying to castle even though the piece has moved
-	if (dist == 2 || dist == -2) {
-	    return false;
-	}
+        // trying to castle even though the piece has moved
+        if (dist == 2 || dist == -2) {
+            return false;
+        }
     }
 
     // Check for castling
@@ -108,28 +87,32 @@ bool Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
         // auto potentialCastle = to;
         pair<int, int> potentialRook;
         pair<int, int> potentialRookMove;
+        bool validCastleLocation = false;
         if (to.first == 2) {
             potentialRook = make_pair(0, to.second);
             potentialRookMove = make_pair(3, to.second);
+            validCastleLocation = true;
         } else if (to.first == 6) {
             potentialRook = make_pair(7, to.second);
             potentialRookMove = make_pair(5, to.second);
+            validCastleLocation = true;
         }
         
-        auto pRook = getPiece(potentialRook);
-        if (piece->getColor() == pRook->getColor()) {
-            if ((pRook->getType() == 'r' || pRook->getType() == 'R') && !piece->hasMoved()) {
-                setPiece(pRook, potentialRookMove);
-                setPiece(make_shared<Empty>(), potentialRook);
-                pRook->move();
-            } else {
-                // Do nothing if the move "eats" a piece of the same colour, that is not a castle.
-                return false;
+        if (validCastleLocation) {
+            auto pRook = getPiece(potentialRook);
+            if (piece->getColor() == pRook->getColor()) {
+                if ((pRook->getType() == 'r' || pRook->getType() == 'R') && !piece->hasMoved()) {
+                    setPiece(pRook, potentialRookMove);
+                    setPiece(make_shared<Empty>(), potentialRook);
+                    pRook->move();
+                } else {
+                    // Do nothing if the move "eats" a piece of the same colour, that is not a castle.
+                    return false;
+                }
             }
         }
-    } 
+    }
 
-    
     // Deny a pawn moving diagonally if it's not capturing an opponent piece
     if ((piece->getType() == 'p' || piece->getType() == 'P')) {
         if (from.first != to.first) {
@@ -141,19 +124,8 @@ bool Board::movePieceTo(shared_ptr<Piece> piece, pair<int, int> from, pair<int, 
         }
     }
 
-
-    /* auto potentialMove = getPiece(to);
-    if (piece->getColor() == potentialMove->getColor()) {
-        if (potentialMove->getType() == 'r' || potentialMove->getType() == 'R') {
-            setPiece(potentialMove, from);
-            potentialMove->move();
-        } else {
-            // Do nothing if the move "eats" a piece of the same colour, that is not a castle.
-            return false;
-        }
-    } else {
-        setPiece(make_shared<Empty>(), from);
-    } */
+    // uses setPiece twice: once to place the piece in the end spot,
+    // a second time to set the starting point to empty.
     setPiece(make_shared<Empty>(), from);
     setPiece(piece, to);
     piece->move();
@@ -171,10 +143,6 @@ void Board::setPiece(shared_ptr<Piece> piece, pair<int, int> position) {
     pieces[position.first][position.second] = piece;
 }
 
-bool Board::isValidMove(Piece &piece, pair<int, int> position) {
-    return true;
-}
-
 void Board::clear() {
     auto empty = make_shared<Empty>();
     for (int i = 0; i <= 7; i++) {
@@ -183,13 +151,3 @@ void Board::clear() {
         }
     }
 }
-
-/*
-BoardIterator Board::begin() {
-    return BoardIterator{make_shared<Board>((*this)), make_pair(0,0)};
-}
-
-BoardIterator Board::end() {
-    return;
-}
-*/

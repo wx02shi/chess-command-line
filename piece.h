@@ -23,7 +23,6 @@ class Piece {
         Piece(char color);
 
         virtual std::vector<std::pair<int, int>> getValidMoves(std::pair<int, int> position, Board &board) = 0;
-        bool canHop();
         bool hasMoved();
         void move();
         void undoMove();

@@ -3,16 +3,11 @@
 #include <utility>
 #include <memory>
 #include <vector>
-#include <iostream>
 
 using namespace std;
 
 Knight::Knight(char color) : Piece{color} {
   type = 'n';
-}
-
-bool Knight::canHop() {
-  return true;
 }
 
 vector<pair<int, int>> Knight::getValidMoves(pair<int, int> position, Board &board) {
@@ -51,64 +46,48 @@ vector<pair<int, int>> Knight::getValidMoves(pair<int, int> position, Board &boa
 
   if (!upLeftTopLimit) {
     auto upLeftTop = board.getPiece(upLeftTopPos);
-    // if (upLeftTop->getColor() != getColor()) { results.push_back(upLeftTopPos); }
     results.push_back(upLeftTopPos);
-    // if (upLeftTop->getColor() != 0) { upLeftTopLimit = true; }
   }
 
   if (!upLeftBottomLimit) {
     auto upLeftBottom = board.getPiece(upLeftBottomPos);
-    // if (upLeftBottom->getColor() != getColor()) { results.push_back(upLeftBottomPos); }
     results.push_back(upLeftBottomPos);
-    // if (upLeftBottom->getColor() != 0) { upLeftBottomLimit = true; }
   }
 
   if (!upRightTopLimit) {
     auto upRightTop = board.getPiece(upRightTopPos);
-    // if (upRightTop->getColor() != getColor()) { results.push_back(upRightTopPos); }
     results.push_back(upRightTopPos);
-    // if (upRightTop->getColor() != 0) { upRightTopLimit = true; }
   }
 
   if (!upRightBottomLimit) {
     auto upRightBottom = board.getPiece(upRightBottomPos);
-    // if (upRightBottom->getColor() != getColor()) { results.push_back(upRightBottomPos); }
     results.push_back(upRightBottomPos);
-    // if (upRightBottom->getColor() != 0) { upRightBottomLimit = true; }
   }
 
   if (!downLeftTopLimit) {
     auto downLeftTop = board.getPiece(downLeftTopPos);
-    // if (downLeftTop->getColor() != getColor()) { results.push_back(downLeftTopPos); }
     results.push_back(downLeftTopPos);
-    // if (downLeftTop->getColor() != 0) { downLeftTopLimit = true; }
   }
 
   if (!downLeftBottomLimit) {
     auto downLeftBottom = board.getPiece(downLeftBottomPos);
-    // if (downLeftBottom->getColor() != getColor()) { results.push_back(downLeftBottomPos); }
     results.push_back(downLeftBottomPos);
-    // if (downLeftBottom->getColor() != 0) { downLeftBottomLimit = true; }
   }
 
   if (!downRightTopLimit) {
     auto downRightTop = board.getPiece(downRightTopPos);
-    // if (downRightTop->getColor() != getColor()) { results.push_back(downRightTopPos);
     results.push_back(downRightTopPos);
-    // if (downRightTop->getColor() != 0) { downRightTopLimit = true; }
   }
 
   if (!downRightBottomLimit) {
     auto downRightBottom = board.getPiece(downRightBottomPos);
-    // if (downRightBottom->getColor() != getColor()) { results.push_back(downRightBottomPos);
     results.push_back(downRightBottomPos); 
-    // if (downRightBottom->getColor() != 0) { downRightBottomLimit = true; }
   }
 
   return results;
 }
 
-int Knight::getValue(){ return 3; }
+int Knight::getValue() { return 3; }
 
 void Knight::accept(PieceVisitor &pv, std::pair<int, int> pos) {
     pv.visit(*this, pos);

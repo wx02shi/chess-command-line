@@ -32,13 +32,12 @@ using namespace std;
 int main() {
     // Set seed for actually random RNG moves
     // srand(time(NULL));
+    srand(2021);
     
     string command;
-    // char turn = 'w';
     shared_ptr<Game> game;
 
-    //Game g{board}; //canvas
-    vector<shared_ptr<Observer>> observers; //shared ptr?
+    vector<shared_ptr<Observer>> observers;
 
     // Bot pawn promotion
     int whitePromotableIdx = 0;
@@ -48,58 +47,48 @@ int main() {
 
     while (cin >> command) {
         if (command == "game") {
+            if (game != nullptr) {
+                game->empty();
+            }
+            
             auto tempGame = make_shared<Game>();
             bool invalidPlayer = false;
 
             string wPlayer;
             string bPlayer;
-            // Probably not the most efficient way to write code...
             cin >> wPlayer;
             if (wPlayer == "human") {
                 tempGame->setWhite(make_shared<Human>('w'));
             } 
             else if (wPlayer == "computer1") { 
-                // game->getWhite() = make_shared<Computer>('w', 1, make_shared<L1>()); 
                 tempGame->setWhite(make_shared<Computer>('w', 1, make_shared<L1>()));
             }
             else if (wPlayer == "computer2") { 
                 tempGame->setWhite(make_shared<Computer>('w', 2, make_shared<L2>())); 
             }
-            /* else if (wPlayer == "computer3") { game->getWhite() = make_shared<Computer>(3); }
-            else if (wPlayer == "computer4") { game->getWhite() = make_shared<Computer>(4); }
-             */ else { invalidPlayer = true; }
+            else { invalidPlayer = true; }
 
             cin >> bPlayer;
             if (bPlayer == "human") {
                 tempGame->setBlack(make_shared<Human>('b'));
             } 
-            else if (bPlayer == "computer1") { 
-                // game->getBlack() = make_shared<Computer>('b', 1, make_shared<L1>()); 
+            else if (bPlayer == "computer1") {
                 tempGame->setBlack(make_shared<Computer>('b', 1, make_shared<L1>())); 
             }
             else if (bPlayer == "computer2") { 
                 tempGame->setBlack(make_shared<Computer>('b', 2, make_shared<L2>())); 
             }
-            
-            /* else --if (bPlayer == "compute3") { game->getBlack() = make_shared<Computer>(3); }
-            else if (bPlayer == "computer4") { game->getBlack() = make_shared<Computer>(4); }
-             */ else { invalidPlayer = true; }
+            else { invalidPlayer = true; }
 
             if (!invalidPlayer) { 
                 game = tempGame;
                 tempGame = nullptr;
                 // display game
                 observers.emplace_back(make_shared<TextObserver>(game));
-                // observers.emplace_back(make_shared<GraphicsObserver>(game));
-                
-                // cout << "CREATE OBSERVER GAME COUNT: " << game.use_count() << endl;
-                // cout << "OBSERVERS SIZE: " << observers.size() << endl;
+                observers.emplace_back(make_shared<GraphicsObserver>(game));
+
                 game->render();
             }
-            // else {
-                // print error msg
-                // TODO: add proper exception handling, not a boolean
-            // }
         }
         else if (command == "resign") {
             if (game->getTurn() == 'w') { game->blackWins(); }
@@ -110,9 +99,7 @@ int main() {
             if (turn == 'w' && game->getWhite()->getType() == 'c') {
                 pair<pair<int, int>, pair<int, int>> move;
                 while (true) {
-                    // cout << "is this looping?" << endl;
                     move = game->getWhite()->autoMove(*game->getBoard().get(), *game.get());
-                    cout << "(" << move.first.first << ", " << move.first.second << "), (" << move.second.first << ", " << move.second.second << ")" << endl;
                     if (move.first != move.second) {
                         game->movePiece(move.first, move.second);
 
@@ -141,7 +128,6 @@ int main() {
                         // Undo the move if the bot put itself into check
                         game->updateGameState();
                         char gState = game->getGameState();
-                        // cout << "gState: " << gState << endl;
                         
                         if (gState == turn || gState == turn - 32) {
                             game->undo();
@@ -155,23 +141,15 @@ int main() {
                             } else if (gState == 's') {
                                 game->tie();
                             }
-                            /* if (turn == 'w') {
-                                turn = 'b';
-                            } else {
-                                turn = 'w';
-                            } */
                             game->nextTurn();
                             break;
                         }
                     }
                 }
-                // cout << "WHITE MOVE PAIR (" << "" + move.first.first +1 + 97 << move.first.second +1 << "), (" << "" + move.second.first +1 + 97 << move.second.second +1 << ")" << endl;
-                // cout << "WHITE MOVE PAIR (" << move.first.first << ", " << move.first.second << "), (" << move.second.first << ", " << move.second.second << ")" << endl;
             } else if (turn == 'b' && game->getBlack()->getType() == 'c') {
                 pair<pair<int, int>, pair<int, int>> move;
                 while (true) {
                     move = game->getBlack()->autoMove(*game->getBoard().get(), *game.get());
-                    cout << "(" << move.first.first << ", " << move.first.second << "), (" << move.second.first << ", " << move.second.second << ")" << endl;
                     if (move.first != move.second) {
                         game->movePiece(move.first, move.second);
                         
@@ -213,18 +191,11 @@ int main() {
                             } else if (gState == 's') {
                                 game->tie();
                             }
-                            /* if (turn == 'w') {
-                                turn = 'b';
-                            } else {
-                                turn = 'w';
-                            } */
                             game->nextTurn();
                             break;
                         }
                     }
                 }
-                // cout << "BLACK MOVE PAIR (" << "" + move.first.first +1 + 97 << move.first.second +1 << "), (" << "" + move.second.first +1 + 97 << move.second.second +1 << ")" << endl;
-                // cout << "BLACK MOVE PAIR (" << move.first.first << ", " << move.first.second << "), (" << move.second.first << ", " << move.second.second << ")" << endl;
             } else {
                 string startS;
                 string endS;
@@ -253,6 +224,7 @@ int main() {
                             if (end.second == 0) {
                                 cout << "What to promote? ";
                                 cin >> toPromote;
+                                cout << endl;
                                 if (toPromote == 'Q') {
                                     game->getBoard()->setPiece(make_shared<Queen>(turn), end);
                                 } else if (toPromote == 'R') {
@@ -298,11 +270,6 @@ int main() {
                             } else if (gState == 's') {
                                 game->tie();
                             }
-                            /* if (turn == 'w') {
-                                turn = 'b';
-                            } else {
-                                turn = 'w';
-                            } */
                             game->nextTurn();
                         }
                     } else {
@@ -334,12 +301,11 @@ int main() {
                                 if (j == 0 || j == 7) { // check for pawns on first and last row
                                     if (piece->getType() == 'p' ||
                                         piece->getType() == 'P') {
-					if (valid) {
-					    // only print this once
+                                        if (valid) {
+                                            // only print this once
                                             cout << "Invalid setup, pawns can't be placed on first and last rows" << endl;
-					}
+                                        }
                                         valid = false;
-                                        // break;
                                     }
                                 }
 
@@ -351,8 +317,6 @@ int main() {
                                         bKingCount++;
                                     }
                                 }
-
-                                // if (!valid) {break;}
                             }
                         }
 
@@ -420,13 +384,6 @@ int main() {
                     }
                 }
             }
-
-            /** CHECK FOR:
-             * exactly one king on both colours
-             * no pawns on the first or last row
-             * neither king is check
-             * otherwise cannot leave setup
-             */
         }
         
         else if (command == "getValidMoves") {
@@ -437,34 +394,9 @@ int main() {
                 cout << it.first << ' ' << it.second << endl;
             }
         }
-        
-        else {
-            // print error msg
-        }
     }
 
-    // Print game final score
     game->printResults();
-
-    // cout << "TEXTOBS COUNT OUTSIDE LOOP " << observers[0].use_count() << endl;
     game->empty();
-    //cout << "DISPLAY GAME COUNT OUTSIDE LOOP " << game.use_count() << endl;
     observers.erase(observers.begin(), observers.end());
-    //cout << "OBSERVERS SIZE OUTSIDE: " << observers.size() << endl;
-    //cout << "DISPLAY GAME COUNT AFTER OBSERVER ERASE " << game.use_count() << endl; 
-
-    // game white-player black-player
-    // can be human or computer[1-4]
-
-    // resign
-
-    // move start end (e.g. move e2 e4)
-
-    // move start end piece (e.g. move e7 e8 Q)
-
-    // setup
-    // + piece pos
-    // - pos
-    // = colour
-    // done
 }

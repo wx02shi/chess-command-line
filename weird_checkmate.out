@@ -1,0 +1,315 @@
+8 rnbqkbnr
+7 pppppppp
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPPPPPP
+1 RNBQKBNR
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  _ _ _ _
+1 R _ _ _ 
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  _ _ _ _
+1 RN_ _ _ 
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  _ _ _ _
+1 RNB _ _ 
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  _ _ _ _
+1 RNBQ_ _ 
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  _ _ _ _
+1 RNBQ_ N 
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  _ _ _ _
+1 RNBQ_ NR
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 P_ _ _ _
+1 RNBQ_ NR
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PP _ _ _
+1 RNBQ_ NR
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPP_ _ _
+1 RNBQ_ NR
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP _ _
+1 RNBQ_ NR
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP _P_
+1 RNBQ_ NR
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP _PP
+1 RNBQ_ NR
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _B_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP _PP
+1 RNBQ_ NR
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _B_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP _PP
+1 RNBQK NR
+
+  abcdefgh
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _B_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP PPP
+1 RNBQK NR
+
+  abcdefgh
+8 r_ _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _B_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP PPP
+1 RNBQK NR
+
+  abcdefgh
+8 rn _ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _B_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP PPP
+1 RNBQK NR
+
+  abcdefgh
+8 rnb_ _ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _B_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP PPP
+1 RNBQK NR
+
+  abcdefgh
+8 rnb_k_ _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _B_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP PPP
+1 RNBQK NR
+
+  abcdefgh
+8 rnb_kr _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _B_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP PPP
+1 RNBQK NR
+
+  abcdefgh
+8 rnb_kr _
+7 p _ _ _ 
+6  _ _ _ _
+5 _B_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP PPP
+1 RNBQK NR
+
+  abcdefgh
+8 rnb_kr _
+7 p _p_ _ 
+6  _ _ _ _
+5 _B_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP PPP
+1 RNBQK NR
+
+  abcdefgh
+8 rnb_kr _
+7 p _p_p_ 
+6  _ _ _ _
+5 _B_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP PPP
+1 RNBQK NR
+
+  abcdefgh
+8 rnb_kr _
+7 p _p_pp 
+6  _ _ _ _
+5 _B_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP PPP
+1 RNBQK NR
+
+  abcdefgh
+8 rnb_kr _
+7 p _p_ppp
+6  _ _ _ _
+5 _B_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP PPP
+1 RNBQK NR
+
+  abcdefgh
+8 rnb_kr _
+7 p _p_ppp
+6  _ _p_ _
+5 _B_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP PPP
+1 RNBQK NR
+
+  abcdefgh
+8 rnb_kr _
+7 p _p_ppp
+6  _ _p_ _
+5 _Bp _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP PPP
+1 RNBQK NR
+
+  abcdefgh
+8 rnb_kr _
+7 p _p_ppp
+6  _ _pq _
+5 _Bp _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPP PPP
+1 RNBQK NR
+
+  abcdefgh
+Setup completed!
+8 rnb_kr _
+7 p _p_ppp
+6  _ _pq _
+5 _Bp _ _ 
+4  _ _ _ _
+3 _ _ _P_ 
+2 PPPP _PP
+1 RNBQK NR
+
+  abcdefgh
+8 rnb_kr _
+7 p _p_ppp
+6  _ _p_ _
+5 _Bp _ _ 
+4  _ _ _ q
+3 _ _ _P_ 
+2 PPPP _PP
+1 RNBQK NR
+
+  abcdefgh
+White is in check.
+Final Score:
+White: 0
+Black: 0
