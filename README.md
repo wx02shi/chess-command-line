@@ -17,7 +17,7 @@ It should be noted that stalemate is not properly implemented, as such stalemate
 for both players.
 
 ## Design
-UML Diagram:
+UML Diagram: please excuse how small it looks, and the weird separation in the middle. My profs required that I submit the diagram in PDF format for some reason.
 ![Diagram](https://github.com/wx02shi/cs246-chess-project/blob/master/uml-final.png?raw=true)
 
 ### Strategy Design Pattern
