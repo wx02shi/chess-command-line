@@ -3,7 +3,7 @@
 ## Overview
 This project takes advantage of the object-oriented principles taught in CS 246, such as Observer, Strategy, and Visitor design patterns.
 
-This readme provides a general rundown of the project, for our full learnings, open the `demo.pdf`, `design.pdf`, and `uml-final.pdf` to learn more.
+This readme provides a general rundown of the project, for our full learnings, open the `demo.pdf`, `design.pdf`, and `uml-final.png` to learn more.
 
 Run the program using `./chess`. 
 
@@ -18,7 +18,7 @@ for both players.
 
 ## Design
 UML Diagram:
-![Diagram](https://github.com/wx02shi/cs246-chess-project/blob/master/uml-final.pdf)
+![Diagram](https://github.com/wx02shi/cs246-chess-project/blob/master/uml-final.png?raw=true)
 
 ### Strategy Design Pattern
 This is the most complicated part of the project. The computer class primarily employs this design pattern. 
