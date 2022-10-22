@@ -1,0 +1,8 @@
+game human human
+setup
++ K e1
++ P a1
+= black
++ K e8
++ P a8
+done

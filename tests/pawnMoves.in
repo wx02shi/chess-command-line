@@ -1,0 +1,11 @@
+game human human
+setup
++ K e1 
++ P e2
+= black
++ K e8
+done
+move e2 e4
+move e8 f8
+move e4 e5
+move f8 e8

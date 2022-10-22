@@ -1,0 +1,15 @@
+game human human
+setup
+= black
++ K a1
+= white
++ Q b4
+= black
++ P f4
+= white
++ R b7
++ K a8
+done
+move b4 b3
+move f4 f3
+move b7 a7

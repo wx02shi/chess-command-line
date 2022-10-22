@@ -1,0 +1,4 @@
+#!/bin/bash -x
+clear
+make
+rm *.o *.d

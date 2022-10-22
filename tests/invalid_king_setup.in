@@ -1,0 +1,7 @@
+game human human
+setup
++ K a1
++ K e1
+= black
++ K f8
+done

@@ -1,0 +1,21 @@
+game computer1 computer1 
+setup
++ K c4
+= black
++ P b4
++ P b3
++ P c3
++ P d3
++ P d4
+
++ Q a4
++ Q a3
++ Q b2
++ Q c2
++ Q d2
++ Q e3
++ Q e4
+
++ K h2
+done
+move

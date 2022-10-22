@@ -1,0 +1,6 @@
+#!/bin/bash -x
+if [ ! -z "$1" -a -e "$1" ]; then
+    valgrind ./chess < "$1"
+else
+    valgrind ./chess
+fi
