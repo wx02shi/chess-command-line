@@ -18,6 +18,7 @@ for both players.
 
 ## Design
 UML Diagram:
+![Diagram](https://github.com/wx02shi/cs246-chess-project/blob/master/uml-final.pdf)
 
 ### Strategy Design Pattern
 This is the most complicated part of the project. The computer class primarily employs this design pattern. 
