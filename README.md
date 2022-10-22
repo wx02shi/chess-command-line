@@ -1,4 +1,4 @@
-# cs246 Chess Project: Command-line chess game.
+# CS246 Chess Project: Command-line chess game.
 
 ## Overview
 This project takes advantage of the object-oriented principles taught in CS 246, such as Observer, Strategy, and Visitor design patterns.
