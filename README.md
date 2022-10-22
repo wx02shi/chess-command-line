@@ -84,3 +84,8 @@ Before a game starts, the user can setup the board to run certain scenarios.
 `+ K a1`: adds a King piece to tile A1.\
 `= black`: switches to Black player's turn to add pieces.\
 `done`: exit setup mode.
+
+## Dev
+The `./chess` file is compiled using Makefile. There are a bunch of scripts available to do this. Please note that the scripts must be moved into the root directory of the project in order to work. 
+
+The project is compiled with minimum version C++14, on an Ubuntu distribution. If you are using a remote SSH connection to your device, you must enable -lX11 forwarding. Adding a `-Y` flag to your SSH command will probably work. 
