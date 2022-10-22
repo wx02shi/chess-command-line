@@ -1,4 +1,0 @@
-#!/bin/bash -x
-bash compile
-bash run
-
